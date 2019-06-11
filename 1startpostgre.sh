@@ -15,5 +15,5 @@ docker volume ls | grep -w ben_postgre_etc; [[ $? -ne 0 ]] &&  docker volume cre
 docker volume ls | grep -w ben_postgre_log; [[ $? -ne 0 ]] &&  docker volume create ben_postgre_log && echo -e "\033[37;1;34m created volume ben_postgre_log \033[0m"
 docker ps -a  | grep -w $CONTAINER_NAME &>/dev/null; [[ $? -eq 0 ]] && docker rm -f $CONTAINER_NAME
 
-docker run  -d --restart=always  -v benpostgresql:/var/lib/postgresql -v benpostgreetc:/etc/postgresql -v benpostgrelog:/var/log/postgresql  --network=gerrit-net --name=$CONTAINER_NAME  $CONTAINER_IMAGE:$POSTGRE_VER
+docker run  -d --restart=always  -v ben_postgre_sql:/var/lib/postgresql -v ben_postgre_etc:/etc/postgresql -v ben_postgre_log:/var/log/postgresql  --network=gerrit-net --name=$CONTAINER_NAME  $CONTAINER_IMAGE:$POSTGRE_VER
 

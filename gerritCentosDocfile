@@ -34,6 +34,6 @@ COPY  --chown=gerrit files/secure.config gerrit/etc/
 EXPOSE 8080
 USER gerrit
 
-VOLUME ["gerrit/git", "gerrit/index", "gerrit/cache", "gerrit/etc"]
+#VOLUME ["gerrit/git", "gerrit/index", "gerrit/cache", "gerrit/etc"]
 ENTRYPOINT ["/home/gerrit/gerrit/bin/gerrit.sh"]
 CMD ["run"]
