@@ -1,80 +1,60 @@
 #!/bin/bash
+#./exp1.sh -jv=8 -av=10 -n=benpostgre -i=ben/postgre -f=postgreUbuntuDocfile  -v=ben_postgre_sql --network=gerrit-net -v=ben_postgre_etc -v=ben_postgre_log
 
 #set -x
 [[ -z "$@" ]] && echo "no args, please use nexts:" \
     && echo -e "\033[37;1;44m ./startstack.sh -option1 ..  -optionN \033[0m" \
-        && echo -e "-jv xx - java version"\
-            && printf "-av xx - application version" \
-                && exit1
-count=1
-c=1
-volume=()
-vol=()
+    && echo -e "-jv xx - java version"\
+    && echo "-av xx - application version" \
+    && exit 1
 
-
-echo "all variables  $@"
-echo "count of variables = $#"
+# define array of volumes
+VOLS=()
 
 
 for i in "$@"
 do
 
-case $i in
-    -p=*|--prefix=*)
-    PREFIX="${i#*=}"
-    echo "RPEFIX= $PREFIX"
-    ;;
-    -s=*|--searchpath=*)
-    SEARCHPATH="${i#*=}"
-    ;;
-    -l=*|--lib=*)
-    DIR="${i#*=}"
-    ;;
-    -v=*|--volume=*)
-    VOLUME="${i#*=}"
-#    while [[ -n "$1" ]] 
-#    do
-#    echo VOLUME = $VOLUME
-#    shift 
-#    done
+    case $i in
+	-jv=*|--java_version=*)
+	JAVA_VERSION="${i#*=}"
+	echo "RPEFIX= $PREFIX";;
+    
+	-av=*|--app_version=*)
+        APP_VERSION="${i#*=}";;
+    
+        -i=*|--image=*)
+	CONTAINER_IMAGE="${i#*=}" ;;
+    
+        -n=*|--name=*)
+	CONTAINER_NAME="${i#*=}" ;;
+            
+        -n=*|--network=*)
+        DOCKER_NETWORK="${i#*=}" ;;
 
+        -f=*|--docfile=*)
+        DOC_FILE="${i#*=}" ;;
+        
+        -v=*|--volume=*)
+        DOCKER_VOLUME="${i#*=}"
+	VOLS+=($DOCKER_VOLUME)  ;;
 
-#for param in $i
-#do
-echo "Parameter #$count: $param $c"
-count=$(( $count + 1 ))
-let "c++" 
-echo VOLUME = $VOLUME
-#done
- while (( "$#" >= 2 )); do
-       volume+=( "$1" )
-       echo "volume=== $volume"
-             shift
-                 done
-
-echo "vol1= ${vol[@]}"
-
-vol+=($VOLUME) 
-echo "vol2= ${vol[@]}"
-
-    ;;
-    --default)
-    DEFAULT=YES
-    ;;
-    *)
-            # unknown option
-    ;;
-esac
+        *)
+           echo "wrong parameters" && exit 1 
+           ;;
+	###  add help        
+	        
+    esac
 done
 
-echo PREFIX = ${PREFIX}
-echo SEARCH PATH = ${SEARCHPATH}
-echo DIRS = ${DIR}
-echo DEFAULT = ${DEFAULT}
-echo VOLUME = $VOLUME
-echo volume =${volume[@]}
 echo "all variables  $@"
 echo "count of variables = $#"
-echo "vol= ${vol[@]}"
+
+echo JAVA_VERSION = $JAVA_VERSION
+echo APP_VERSION = ${APP_VERSION}
+echo CONTAINER_IMAGE = $CONTAINER_IMAGE
+echo CONTAINER_NAME = $CONTAINER_NAME
+echo "VOLUMS= ${VOLS[@]}"
+echo "DOCKER_NETWORK = $DOCKER_NETWORK"
 
 exit 0
