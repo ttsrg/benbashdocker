@@ -1,0 +1,48 @@
+FROM  centos:7.6.1810
+
+RUN id
+ARG APP_VER
+ARG JAVA_VER=1.8.0
+RUN yum -y update && yum clean all
+RUN  yum install -y java-$JAVA_VER-openjdk git wget 
+#    java -version &&    yum clean all
+
+COPY gerritCentosDocfile /
+RUN echo -e "\033[37;1;34m id before user  $id \033[0m"
+
+RUN adduser gerrit
+RUN id
+#RUN java -version
+
+USER gerrit
+WORKDIR  /home/gerrit/
+RUN mkdir -p gerrit/etc && touch gerrit/etc/gerrit.config &&\
+    wget -O gerrit.war  https://gerrit-releases.storage.googleapis.com/gerrit-$APP_VER.war &>/dev/null &&\
+    java -jar gerrit.war init --batch -d gerrit/ &&\
+    rm -rf gerrit.war &&\
+    gerrit/bin/gerrit.sh stop
+RUN echo -e "\033[37;1;34m id after user  $id \033[0m"
+RUN id
+#####
+#RUN  gerrit/bin/gerrit.sh status
+#SHELL ["/bin/bash", "-lc", "gerrit/bin/gerrit.sh status"] # only one service may works stop|status in docker why?
+#RUN gerrit/bin/gerrit.sh start && gerrit/bin/gerrit.sh stop 
+#####
+
+#COPY files/gerrit.config gerrit/etc/
+#COPY files/secure.config gerrit/etc/
+#USER root
+#RUN chown -R gerrit. gerrit/
+
+#feature
+ADD --chown=gerrit files/gerrit.config gerrit/etc/
+COPY  --chown=gerrit files/secure.config gerrit/etc/
+
+RUN echo -e "\033[37;1;34m id after  ADD and COPY  $id \033[0m"
+RUN id
+EXPOSE 8080
+#USER gerrit
+
+#VOLUME ["gerrit/git", "gerrit/index", "gerrit/cache", "gerrit/etc"]
+ENTRYPOINT ["/home/gerrit/gerrit/bin/gerrit.sh"]
+CMD ["run"]
