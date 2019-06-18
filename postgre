@@ -1,11 +1,6 @@
 FROM ubuntu:16.04 
 MAINTAINER SergBen (ttserg@gmail.com) 
-ARG POSTGRE_VER
-ARG DB_USER
-ARG DBS_USER=test
-ARG DBS_USER_PASS=test
-ARG DBS_DB=test
-
+ARG POSTGRE_VER 
 RUN apt-get update && \ 
     echo 'deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main' >> /etc/apt/sources.list.d/pgdg.list && \
     apt-get install wget -y && \ 
@@ -16,17 +11,17 @@ RUN apt-get update && \
 
 COPY postgreUbuntuDocfile /
 
-USER $DB_USER
+USER postgres
 RUN  /etc/init.d/postgresql start &&\
-     psql --command "CREATE USER $DBS_USER WITH SUPERUSER PASSWORD '$DBS_USER_PASS';" &&\
-     createdb -O  $DBS_USER  $DBS_DB
+     psql --command "CREATE USER gerrit WITH SUPERUSER PASSWORD 'gerrit';" &&\
+     createdb -O  gerrit  reviewdb
 RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/$POSTGRE_VER/main/pg_hba.conf
 RUN echo "listen_addresses='*'" >> /etc/postgresql/$POSTGRE_VER/main/postgresql.conf
 EXPOSE 5432
 ENV  POSTGREENV_VER=$POSTGRE_VER
 
 
-#VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
+VOLUME  ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql"]
 
 CMD /usr/lib/postgresql/$POSTGREENV_VER/bin/postgres -D /var/lib/postgresql/$POSTGREENV_VER/main -c  config_file=/etc/postgresql/$POSTGREENV_VER/main/postgresql.conf
 

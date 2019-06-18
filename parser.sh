@@ -21,11 +21,19 @@ do
 
     case $i in
 	-jv=*|--java_version=*)
-	JAVA_VER="${i#*=}"
-	echo "RPEFIX= $PREFIX";;
+	JAVA_VER="${i#*=}";;
     
 	-av=*|--app_version=*)
         APP_VER="${i#*=}";;
+
+
+
+        -ci=*|--container_image=*)
+	CONTAINER_IMAGE=${i#*=} ;;
+        ....
+        -cn=*|--container_name=*)
+        CONTAINER_NAME=${i#*=} ;;
+                
 
 # user for postgre/mysql and etc
         -dbu=*|--data_base_user=*)
@@ -45,16 +53,13 @@ do
         -f=*|--docfile=*)
         DOC_FILE="${i#*=}" ;;
     
-        -ci=*|--container_image=*)
-	CONTAINER_IMAGE=${i#*=} ;;
-    
-        -cn=*|--container_name=*)
-	CONTAINER_NAME=${i#*=} ;;
-            
         -dn=*|--docker_network=*)
         DOCKER_NETWORK="${i#*=}" ;;
 
-        
+	-p=*|--port=*)
+	FORWARD_PORT="${i#*=}"
+	PORT+=($FORWARD_PORT) ;;        
+	
         -v=*|--volume=*)
         DOCKER_VOLUME="${i#*=}"
 	VOLUME+=($DOCKER_VOLUME)  ;;

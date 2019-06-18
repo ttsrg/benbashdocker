@@ -1,15 +1,20 @@
 #!/bin/bash
 # app gerrit
 
+
 #define variables
 CONTAINER_NAME=bengerrit
 CONTAINER_IMAGE=ben/gerritben
+###JAVA!!!!
+
 APP_VER=3.0.0
 VOL1=ben_gerrit_git
 VOL2=ben_gerrit_index
 VOL3=ben_gerrit_cache
 VOL4=ben_gerrit_etc
 HOME_APP=/home/gerrit/gerrit
+
+
 
 docker build -t $CONTAINER_IMAGE:$APP_VER --build-arg APP_VER=$APP_VER -f gerritCentosDocfile .
 
