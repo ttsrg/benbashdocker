@@ -49,7 +49,7 @@ docker ps -a  | grep -w $CONTAINER_NAME &>/dev/null; [[ $? -eq 0 ]] && echo  -e 
 #docker run  -d  -v=ben_postgre_sql:/var/lib/postgresql -v=ben_postgre_etc:/etc/postgresql -v=ben_postgre_log:/var/log/postgresql 
 
 echo  -e "\n\e[92m DOCKER VOLUME(s)  \033[0m"
-docker run   -d  ${VALLALL[@]} ${PORT[@]} --network=$DOCKER_NETWORK --name=$CONTAINER_NAME  $CONTAINER_IMAGE:$APP_VER 
+docker run   -d  ${VOLALL[@]} ${PORT[@]} --network=$DOCKER_NETWORK --name=$CONTAINER_NAME  $CONTAINER_IMAGE:$APP_VER 
 
 #-v ben_postgre_sql:/var/lib/postgresql -v ben_postgre_etc:/etc/postgresql -v ben_postgre_log:/var/log/postgresql  --network=gerrit-net 
 #--name=$CONTAINER_NAME  $CONTAINER_IMAGE:$POSTGRE_VER

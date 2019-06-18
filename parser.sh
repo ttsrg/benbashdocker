@@ -30,7 +30,7 @@ do
 
         -ci=*|--container_image=*)
 	CONTAINER_IMAGE=${i#*=} ;;
-        ....
+
         -cn=*|--container_name=*)
         CONTAINER_NAME=${i#*=} ;;
                 
