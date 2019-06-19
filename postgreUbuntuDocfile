@@ -1,6 +1,7 @@
 FROM ubuntu:16.04 
 MAINTAINER SergBen (ttserg@gmail.com) 
 ARG POSTGRE_VER
+ARG CONTAINER_USER
 ARG DB_USER=$CONTAINER_USER
 ARG DBS_USER=test
 ARG DBS_USER_PASS=test
@@ -15,10 +16,13 @@ RUN apt-get update && \
     apt-get -y  autoremove && apt-get -y  autoclean
 
 COPY postgreUbuntuDocfile /
-
+#run echo  "\033[37;1;44m  !!!!!!! \033[0m"
+#run echo container user = $CONTAINER_USER
+#run echo dbs_db= $DBS_DB
 USER $DB_USER
+RUN id && pwd
 RUN  /etc/init.d/postgresql start &&\
-     psql --command "CREATE USER $DBS_USER WITH SUPERUSER PASSWORD '$DBS_USER_PASS';" &&\
+     psql --command "CREATE USER "$DBS_USER" WITH SUPERUSER PASSWORD '$DBS_USER_PASS';" &&\
      createdb -O  $DBS_USER  $DBS_DB
 RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/$POSTGRE_VER/main/pg_hba.conf
 RUN echo "listen_addresses='*'" >> /etc/postgresql/$POSTGRE_VER/main/postgresql.conf

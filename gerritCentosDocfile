@@ -11,20 +11,21 @@ COPY gerritCentosDocfile /
 
 RUN adduser $CONTAINER_USER
 USER $CONTAINER_USER
-WORKDIR  /home/gerrit/
+WORKDIR  /home/$CONTAINER_USER/
 RUN mkdir -p gerrit/etc && touch gerrit/etc/gerrit.config &&\
     wget -O gerrit.war  https://gerrit-releases.storage.googleapis.com/gerrit-$APP_VER.war &>/dev/null &&\
     java -jar gerrit.war init --batch -d gerrit/ &&\
     rm -rf gerrit.war &&\
     gerrit/bin/gerrit.sh stop
 
-
+RUN pwd
+RUN id
 #feature
-ADD --chown=$CONTAINER_USER files/gerrit.config gerrit/etc/
-COPY  --chown=$CONTAINER_USER files/secure.config gerrit/etc/
+RUN echo user = $CONTAINER_USER
+ADD --chown=gerrit files/gerrit.config gerrit/etc/
+COPY  [--chown=${CONTAINER_USER}:${CONTAINER_USER}] files/secure.config gerrit/etc/
 
 EXPOSE 8080
-USER $CONTAINER_USER
 
 #VOLUME ["gerrit/git", "gerrit/index", "gerrit/cache", "gerrit/etc"]
 ENTRYPOINT ["/home/gerrit/gerrit/bin/gerrit.sh"]

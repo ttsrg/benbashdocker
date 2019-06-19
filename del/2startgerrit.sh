@@ -15,7 +15,7 @@ HOME_APP=/home/gerrit/gerrit
 docker build -t $CONTAINER_IMAGE:$APP_VER --build-arg JAVA_VER=$JAVA_VER   --build-arg APP_VER=$APP_VER -f gerritCentosDocfile .
 # --build-arg JAVA_VER=$JAVA_VER 
 #echo result of build $?
-[[ $? -ne 0 ]] &&   echo -e "\e[95m !!!!!WARNING \033[0m"
+[[ $? -ne 0 ]] &&   echo -e "\e[95m !!!!!WARNING \033[0m" && exit 1
 #echo  -e "\n\e[92m DOCKER NETWORK \033[0m"
 
 #--build-arg JAVA_VER=$JAVA_VER
