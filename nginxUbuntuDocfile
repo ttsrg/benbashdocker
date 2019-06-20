@@ -1,12 +1,15 @@
 FROM ubuntu:16.04 
 MAINTAINER SergBen (ttserg@gmail.com) 
+
 ARG APP_VER
 ARG NGINX_VER=$APP_VER
 
+
+#i've faced a problem w no exists variable
 #run echo  "\033[37;1;44m  !!!!!!! \033[0m"
-run echo NGINX_VER= $NGINX_VER
-run echo APP_VER= $APP_VER
-run echo  "\033[37;1;44m  !!!!!!! \033[0m"
+#run echo NGINX_VER= $NGINX_VER
+#run echo APP_VER= $APP_VER
+#run echo  "\033[37;1;44m  !!!!!!! \033[0m"
 
 
 RUN apt-get update && \ 
@@ -18,15 +21,10 @@ RUN apt-get update && \
     apt-get -y  autoremove && apt-get -y  autoclean
 
 
-run echo  "\033[37;1;44m  !!!!!!! \033[0m"
-run echo NGINX_VER= $NGINX_VER
-run echo APP_VER= $APP_VER
-
 
 COPY nginxUbuntuDocfile /
 COPY files/nginx.conf /usr/local/nginx/conf/
-#RUN ln -sf /dev/stdout /var/log/nginx/access.log \
-#&& ln -sf /dev/stderr /var/log/nginx/error.log
+
 RUN ln -sf /dev/stdout /usr/local/nginx/logs/access.log \
     && ln -sf /dev/stderr /usr/local/nginx/logs/error.log
 

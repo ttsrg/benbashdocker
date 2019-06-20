@@ -2,9 +2,6 @@
 #./exp1.sh -jv=8 -av=10 -n=benpostgre -i=ben/postgre -f=postgreUbuntuDocfile  -v=ben_postgre_sql --network=gerrit-net -v=ben_postgre_etc -v=ben_postgre_log \
 #-dbsdb==reviewdb
 
- #./exp1.sh     -ci=ben/postgre -av=10 -dbu=postgres -dbsu=gerrit -dbsup=gerrit -dbsdb=reviewdb -f=postgreUbuntuDocfile
- 
-
 #set -x
 [[ -z "$@" ]] && echo "no args, please use nexts:" \
     && echo -e "\033[37;1;44m ./startstack.sh -option1 ..  -optionN \033[0m" \
@@ -37,13 +34,12 @@ do
 
         -cn=*|--container_name=*)
         CONTAINER_NAME=${i#*=}
-        [[ ! -z "$CONTAINER_NAME" ]] && echo CONTAINER_NAME = $CONTAINER_NAME
-        
-         ;;
-                
+        [[ ! -z "$CONTAINER_NAME" ]] && echo CONTAINER_NAME = $CONTAINER_NAME   ;;
 
         -cu=*|--container_user=*)
         CONTAINER_USER=${i#*=} ;;
+
+
 # user for postgre/mysql and etc - feature
         -dbu=*|--data_base_user=*)
         DB_USER="${i#*=}" ;;
@@ -139,11 +135,10 @@ echo  -e "\n\e[92m DOCKER bind VOLUME(s) ${VOLALL[@]} \033[0m"
 echo  -e "\n\e[96m  $DOCKER_NETWORK   $CONTAINER_NAME   $CONTAINER_IMAGE:$APP_VER  \033[0m"
 docker run   -d  ${VOLALL[@]} ${PORT[@]} --network=$DOCKER_NETWORK --name=$CONTAINER_NAME  $CONTAINER_IMAGE:$APP_VER
 #--restart=always
+
 sleep 1
 docker ps
 [[ ! -z "${PORT_FORWARD[@]}" ]] && echo "PORT_FORWARD(s) = ${PORT_FORWARD[@]}"
-
-
 
 
 # exit 0

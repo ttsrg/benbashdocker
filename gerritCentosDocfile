@@ -18,10 +18,7 @@ RUN mkdir -p gerrit/etc && touch gerrit/etc/gerrit.config &&\
     rm -rf gerrit.war &&\
     gerrit/bin/gerrit.sh stop
 
-RUN pwd
-RUN id
-#feature
-RUN echo user = $CONTAINER_USER
+####it's vital
 ADD --chown=gerrit files/gerrit.config gerrit/etc/
 COPY  [--chown=${CONTAINER_USER}:${CONTAINER_USER}] files/secure.config gerrit/etc/
 
