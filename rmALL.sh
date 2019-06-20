@@ -3,7 +3,7 @@
 #define variables
 NETWORK=gerrit-net
 IMAGE_PART=ben/
-VOL_PART=ben_
+VOL_PART=-
 
 #set -x
 echo -e "\033[37;1;33m remove containers in network $NETWORK \033[0m"
