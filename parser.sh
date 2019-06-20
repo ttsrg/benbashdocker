@@ -85,9 +85,9 @@ do
     esac
 done
 
+echo -e  "\n\e\033[37;1;44m  ---====variables====----- \033[0m"
 echo "all variables  $@"
 echo "count of variables = $#"
-
 [[ ! -z "$JAVA_VERSION" ]] && echo JAVA_VERSION = $JAVA_VERSION
 #[[ $JAVA_VERSION !== "" ]] && echo JAVA_VERSION = $JAVA_VERSION
 ### all variables need  add
@@ -100,13 +100,15 @@ echo "count of variables = $#"
 [[ ! -z "$DBS_USER_PASS" ]] && echo DBS_USER_PASS=$DBS_USER_PASS
 [[ ! -z "$DBS_DB" ]] && echo DBS_DB=$DBS_DB
 [[ ! -z "${VOLUME[@]}" ]] && echo "VOLUME(s) = ${VOLUME[@]}"
-
+[[ ! -z "${PORT_FORWARD[@]}" ]] && echo "PORT_FORWARD(s) = ${PORT_FORWARD[@]}"
+echo -e  "\n\e\033[37;1;44m  ----=========------ \033[0m"
 
 #---====build containers=====-----
 ###docker build -t $CONTAINER_IMAGE:$APP_VER  ${BUILD_ARG[@]}  -f $DOC_FILE .
-#docker build -t $CONTAINER_IMAGE:$APP_VER  --build-arg CONTAINER_USER=$CONTAINER_USER --build-arg JAVA_VER=$JAVA_VER \
-#--build-arg APP_VER=$APP_VER --build-arg POSTGRE_VER=$APP_VER  \
-#--build-arg DBS_USER=$DBS_USER --build-arg DBS_USER_PASS=$DBS_USER_PASS  --build-arg DBS_DB=$DBS_DB   -f $DOC_FILE .
+
+docker build -t $CONTAINER_IMAGE:$APP_VER  --build-arg CONTAINER_USER=$CONTAINER_USER --build-arg JAVA_VER=$JAVA_VER \
+--build-arg APP_VER=$APP_VER --build-arg POSTGRE_VER=$APP_VER  \
+--build-arg DBS_USER=$DBS_USER --build-arg DBS_USER_PASS=$DBS_USER_PASS  --build-arg DBS_DB=$DBS_DB   -f $DOC_FILE .
 
 #--build-arg DB_USER=$DB_USER 
 [[ $? -ne 0 ]] &&   echo -e "\e[94m !!!!!BUILD ERROR \033[0m" && exit 1
@@ -133,11 +135,14 @@ done
 
 docker ps -a  | grep -w $CONTAINER_NAME &>/dev/null; [[ $? -eq 0 ]] && echo  -e "\n\e[92m same name container was removed   \033[0m" && docker rm -f $CONTAINER_NAME
 
-echo  -e "\n\e[92m DOCKER VOLUME(s) ${VOLALL[@]} \033[0m"
-echo  -e "\n\e[97m  $DOCKER_NETWORK   $CONTAINER_NAME   $CONTAINER_IMAGE:$APP_VER  \033[0m"
+echo  -e "\n\e[92m DOCKER bind VOLUME(s) ${VOLALL[@]} \033[0m"
+echo  -e "\n\e[96m  $DOCKER_NETWORK   $CONTAINER_NAME   $CONTAINER_IMAGE:$APP_VER  \033[0m"
 docker run   -d  ${VOLALL[@]} ${PORT[@]} --network=$DOCKER_NETWORK --name=$CONTAINER_NAME  $CONTAINER_IMAGE:$APP_VER
 #--restart=always
+sleep 1
 docker ps
+[[ ! -z "${PORT_FORWARD[@]}" ]] && echo "PORT_FORWARD(s) = ${PORT_FORWARD[@]}"
+
 
 
 
