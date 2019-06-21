@@ -1,0 +1,60 @@
+---
+- name: Check if Docker is installed
+  command: systemctl status docker
+  register: docker_check
+  ignore_errors: yes
+
+- name: Add docker repo
+  yum_repository:
+    name: docker
+    description: docker stable
+    baseurl: https://download.docker.com/{{ ansible_system|lower }}/{{ ansible_distribution|lower }}/{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/stable
+    gpgkey: https://download.docker.com/{{ ansible_system|lower }}/{{ ansible_distribution|lower }}/gpg
+    gpgcheck: yes
+  when: docker_check.stderr.find('service could not be found') != -1
+
+- name: Enable Docker Edge repo
+  ini_file:
+    dest: /etc/yum.repos.d/docer-ce.repo
+    section: 'docker-ce-edge'
+    option: enabled
+    value: 0
+  when: docker_check.stderr.find('service could not be found') != -1
+
+- name: Configuring docker.conf
+  blockinfile:
+    path: /etc/sysctl.d/docker.conf
+    block: |
+      net.bridge.bridge-nf-call-ip6tables = 1
+      net.bridge.bridge-nf-call-iptables = 1
+    create: True
+
+- name: Sysctl --system
+  command: sysctl --system
+  changed_when: False
+
+- name: Install Docker
+  package:
+    name:
+      - docker-ce
+    state: present
+  when: docker_check.stderr.find('service could not be found') != -1
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  when: docker_check.stderr.find('service could not be found') != -1
+
+- name: get version
+  shell: docker -v| awk '{print $3}'|cut -f1 -d ','
+  register: version
+  notify: docker_facts
+
+- name: Add user vagrant to docker group
+  user:
+    name: vagrant
+    groups: docker
+    append: yes
+

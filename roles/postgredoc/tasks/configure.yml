@@ -1,0 +1,20 @@
+---
+- name: copy script to home/
+  copy:
+    src: 1postgre.sh
+    dest: ~/
+  changed_when: False
+
+- name: copy script to home/
+  copy:
+    src: parser.sh
+    dest: ~/
+  changed_when: False    
+
+
+
+- name: copy dockerfile to home/
+  copy:
+    src: postgreUbuntuDocfile
+    dest: ~/files/
+  changed_when: False

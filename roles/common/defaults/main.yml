@@ -1,0 +1,10 @@
+---
+packages:
+  - yum-utils
+  - net-tools
+  - ntp
+  - nano
+  - mc
+  - epel-release
+  - moreutils
+  - deltarpm

@@ -1,1 +1,36 @@
----
+- hosts: all
+  name: common
+  pre_tasks:
+   - name: shell
+     debug:
+        msg: "Warning. Tasks is working:" 
+### python exists in centos
+
+  tasks:
+  - name: install soft
+    package: name=mc state=installed
+
+  roles: 
+   - common
+#   - docker
+  become: yes
+
+
+- name: Install docker
+  hosts: doc2
+  tags: docker
+  roles:
+  -  docker
+  become: yes
+  
+- name: build and start postgre-docker
+  hosts: doc2
+  tags: postgredoc
+  roles:
+  - postgredoc
+
+- name: build and start gerrit-docker
+  hosts: doc2
+  tags: gerritdoc
+  roles:
+  - gerritdoc          

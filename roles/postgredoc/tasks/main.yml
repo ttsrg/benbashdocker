@@ -1,0 +1,11 @@
+---
+- include:   configure.yml
+#  when: not  service.stat.exists
+
+
+
+- name: start script postgredoc
+  shell: bash 1postgre.sh
+#    register: docke_ch
+#  ignore_errors: yes
+  changed_when: False

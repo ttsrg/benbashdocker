@@ -1,0 +1,11 @@
+[all:vars]
+ansible_user=vagrant 
+ansible_password=vagrant
+ansible_connection=paramiko
+
+[loc]
+localhost ansible_connection=local
+
+[doc2]
+192.168.56.202
+
