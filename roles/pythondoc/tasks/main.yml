@@ -1,0 +1,20 @@
+---
+#- include:   configure.yml
+
+- name: install pip
+  yum:
+    name: python-pip
+    state: installed
+  become: yes          
+
+- name: install certain python modules for docker
+  pip:
+    name: "{{ item.name }}"
+    version: "{{ item.version }}"
+    state: present
+  with_items:
+  - { name: docker, version: 2.0.0 }
+  - { name: docker-py, version: 1.10.6 }
+  become: yes
+  
+### pip install --upgrade pip  ???

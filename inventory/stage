@@ -9,3 +9,6 @@ localhost ansible_connection=local
 [doc2]
 192.168.56.202
 
+[doc3]
+192.168.56.203
+

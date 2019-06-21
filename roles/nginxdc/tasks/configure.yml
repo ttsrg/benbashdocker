@@ -1,0 +1,16 @@
+---
+
+- name: copy file to home/
+  copy:
+    src:  centos.Dockerfile
+    dest: ~/files/
+  changed_when: False
+
+
+
+- name: copy file to home/
+  copy:
+    src:  docker-compose.yml
+    dest: ~/files/
+  changed_when: False
+

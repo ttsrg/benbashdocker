@@ -1,0 +1,19 @@
+---
+- include:   configure.yml
+
+#- name: generate docker-compose file
+#  template:
+#    src: template-compose.yml.j2
+#    dest: files/docker-compose.yml
+    
+- name: run docker-compose
+  docker_service:
+    project_name: test123
+    project_src: files/
+  register: output
+  
+#- name: check test123
+#  assert:
+#    that:
+#	     - "test123.running"
+
