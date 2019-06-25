@@ -5,3 +5,4 @@ docker-compose.yml
 *.terraform*
 *.credsfake*
 *terraform.tfstate*
+*.txt
