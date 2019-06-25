@@ -1,0 +1,5 @@
+---
+- hosts: web
+  tasks:
+   - name: Install python2.7
+     raw: apt-get update && apt-get install -y python2.7-minimal && update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1

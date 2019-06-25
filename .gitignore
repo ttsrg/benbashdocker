@@ -1,3 +1,7 @@
 #gitignore
 volumes/
 docker-compose.yml
+*.key
+*.terraform*
+*.credsfake*
+*terraform.tfstate*
