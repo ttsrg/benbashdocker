@@ -1,14 +1,30 @@
-// Terraform plugin for creating random ids
-#resource "random_id" "instance_id" {
-# byte_length = 8
-#}
-
+# Locks the version of Terraform for this particular use case
+terraform {
+  required_version = "~>0.12.0"
+  }
+  
 // A single Google Cloud Engine instance
 resource "google_compute_instance" "stack" {
 //###"${var.google_compute_instance}" 
 ### count = "${var.count}"
+metadata_startup_script = "docker ps"
+
  metadata = {
             ssh-keys = "${var.sshuser}:${file("${var.public_key_path}")}"
+#            "gce-container-declaration" = "${module.gce-container.metadata_value}"
+            # gce-container-declaration = "${var.docker_declaration}"
+#              gce-container-declaration = "${var.docker_declaration2}"
+   gce-container-declaration = <<CONTAINER
+spec:
+  containers:
+  - name: test-2
+    image: 'tomcat'
+    stdin: false
+    tty: false
+    restartPolicy: Always
+                  
+CONTAINER
+
  }
  name         = "${var.instance_name}"
  machine_type = "${var.machine_type}"
@@ -18,76 +34,46 @@ resource "google_compute_instance" "stack" {
 
  boot_disk {
    initialize_params {
-     image = "${var.image}"
+     image = var.image
+#     size = "13"
    }
  }
 
 // Make sure soft  are installed on all new instances for later steps
- metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync"
+# metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync"
 
  network_interface {
    network = "default"
    access_config {
      // Include this section to give the VM an external ip address
+#     nat_ip = google_compute_address.static.address
    }
  }
 
-
-#provisioner "local-exec" {
-#    command = "echo !!!!!!!!!!!!!!!!! >> qqq.txt"
-#      }
-      
-      
 /*
-provisioner "local-exec" {
-
-    inline = [
-      "sudo curl -sSL https://get.docker.com/ | sh",
-            "sudo usermod -aG docker `echo $USER`",
-                  "sudo docker run -d -p 80:80 nginx"
-                      ]
-                        }
+#  connect to our instance via Terraform and remotely executes our script using SSH
+  provisioner "remote-exec" {
+#      script = var.script_path
+      
+          connection {
+            type        = "ssh"
+            host        = "${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip}"
+                      #google_compute_address.static.address
+            user        = "devops"
+            private_key = "${file("${var.private_key_path}")}"
+            agent       = false
+          }
+                    
+     inline = [
+#       "sudo curl -sSL https://get.docker.com/ | sh",
+#       "sudo usermod -aG docker `echo $USER`",
+#       "docker run -d -p 80:80 nginx"
+#	"echo $(id) $(pwd) > /tmp/qqqcreds.txt "
+	"echo UYYUTJGJHHG"
+      ]
+        
+        }
 */
-
-provisioner "file" {
-  source      = "test.txt"
-    destination = "~/test.txt"
-    
-   connection {
-      host = "${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip}"
-         type        = "ssh"
-            user        = "${var.sshuser}"
-               private_key = "${file("${var.private_key_path}")}"
-                  agent       = false
-                      }
-}
-/*
-provisioner "remote-exec" {
-
-
-   inline = [
-   "sudo curl -sSL https://get.docker.com/ | sh",
-   "sudo usermod -aG docker `echo $USER`",
-   "sudo docker run -d -p 80:80 nginx"
-          ]
-   connection  {
-   host = "${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip}"
-   type        = "ssh"
-   user        = "${var.sshuser}"
-   private_key = "${file("${var.private_key_path}")}"
-   agent       = false
-    }
-    }
-*/
-  
-  
-
-#  service_account {
-#      scopes = ["https://www.googleapis.com/auth/compute.readonly"]
-#        }
-
-  
-
 
 }
 #output "ip" {
@@ -96,11 +82,23 @@ provisioner "remote-exec" {
 
 ###output "${var.instance_name}.ip" {
 
-output "nat_ip" {
+output "ext_nat_ip" {
  value = "${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip}"
 }
 
 output "internal_ip" {
  value = "${google_compute_instance.stack.network_interface.0.network_ip}"
  }
- 
+
+
+/*
+# create a public IP address for our google compute instance to utilize
+resource "google_compute_address" "static" {
+  name = "vm-public-address"
+  }
+  
+  output "address" {
+    value= "${vm-public-address}"
+  }
+  
+  */

@@ -31,14 +31,43 @@ variable "instance_name" {
  }
 
 
+variable "script_path" {
+  type        = "string"
+    description = "Where is the path to the script locally on the machine?"
+ default = ".scr.sh"
+ }
+
 variable "machine_type" {
-default = "f1-micro"
+#default = "f1-micro"
+default = "g1-small"
+}
+
+
+
+variable "port_number" {
+default = "80"
 }
 
 
 variable "image" {
-default = "debian-cloud/debian-9"
+#default = "debian-cloud/debian-9"
+default = "cos-cloud/cos-stable"
 }
+
+variable "docker_declaration" {
+  type = "string"
+# Change the image: string to match the docker image you want to use
+  default = "spec:\n  containers:\n    - name: test-docker\n      image: 'tomcat'\n      stdin: false\n      tty: false\n  restartPolicy: Always\n"
+ }
+# gcr.io/stackdriver-agents/stackdriver-logging-agent:0.2-1.5.33-1-1
+
+/*
+variable "docker_declaration2" {
+  type = "string"
+  # Change the image: string to match the docker image you want to use
+    default = "spec:\n  containers:\n    - name: test-docker2\n      image: 'nginx'\n      stdin: false\n     "
+ }
+*/
 
 variable "credentials_file_path" {
   description = "Path to the JSON file used to describe your account credentials"
