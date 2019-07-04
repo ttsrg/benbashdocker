@@ -30,6 +30,10 @@ variable "instance_name" {
   default = "gerrit"
  }
 
+variable "instance_name_docker" {
+  description = "The name of instance"
+  default = "docker"
+ }
 
 variable "script_path" {
   type        = "string"
@@ -43,16 +47,28 @@ default = "g1-small"
 }
 
 
+variable "machine_type_docker" {
+default = "f1-micro"
+#default = "g1-small"
+}
+
+
 
 variable "port_number" {
 default = "80"
 }
 
 
-variable "image" {
+variable "image_docker" {
 #default = "debian-cloud/debian-9"
 default = "cos-cloud/cos-stable"
 }
+
+
+variable "image" {
+default = "debian-cloud/debian-9"
+}
+
 
 variable "docker_declaration" {
   type = "string"

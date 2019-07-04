@@ -1,0 +1,52 @@
+- hosts: all
+  name: pretasks if need
+  pre_tasks:
+   - name: shell
+     debug:
+        msg: "Warning. Tasks is working:" 
+### python exists in centos
+
+  tasks:
+  - name: install soft
+    package: name=mc state=installed
+
+  roles: 
+   - common
+#   - docker
+  become: yes
+
+
+- name: Install docker
+  hosts: doc2, doc3
+  tags: docker
+  roles:
+#  -  docker
+#  - dockercompose
+  - nginxdc
+#  become: yes
+  
+- name: build and start postgre-docker
+  hosts: doc2
+  tags: postgredoc
+  roles:
+  - postgredoc
+
+- name: build and start gerrit-docker
+  hosts: doc2
+  tags: gerritdoc
+  roles:
+  - gerritdoc          
+  
+
+- name: build and start nginx-docker
+  hosts: doc2, doc3
+  tags: nginxdoc
+  roles:
+  - nginxdoc  
+  
+
+- name: install python/pip  for docker
+  hosts: doc2
+  tags: pythondoc
+  roles:
+  - pythondoc

@@ -4,10 +4,10 @@ terraform {
   }
   
 // A single Google Cloud Engine instance
-resource "google_compute_instance" "stack" {
+resource "google_compute_instance" "docker" {
 //###"${var.google_compute_instance}" 
 ### count = "${var.count}"
-metadata_startup_script = "docker ps"
+//metadata_startup_script = "docker ps"
 
  metadata = {
             ssh-keys = "${var.sshuser}:${file("${var.public_key_path}")}"
@@ -30,26 +30,26 @@ CONTAINER
  }
  
  
- name         = "${var.instance_name}"
- machine_type = "${var.machine_type}"
+ name         = "${var.instance_name_docker}"
+ machine_type = "${var.machine_type_docker}"
  zone         = "${var.region_zone}"
  tags =  ["stack"]
  ###["${var.tags}"]
 
  boot_disk {
    initialize_params {
-     image = var.image
+     image = var.image_docker
 #     size = "13"
    }
  }
 
 
-
+/*
 provisioner "local-exec" {
   command = "$(pwd)/files/1buildpostgre.sh -ci=ttserg/postgre -av=10  -cu=postgres -dbsu=gerrit -dbsup=gerrit -dbsdb=reviewdb  -f=files/postgreUbuntuDocfile "
   interpreter = ["/bin/bash", "-c"]
   }
-  
+*/
 
 
 // Make sure soft  are installed on all new instances for later steps
@@ -132,25 +132,12 @@ provisioner "local-exec" {
 
 ###output "${var.instance_name}.ip" {
 
-output "ext_nat_ip" {
- value = "${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip}"
+output "ext_nat_ip_docker" {
+ value = "${google_compute_instance.docker.network_interface.0.access_config.0.nat_ip}"
 }
 
-output "internal_ip" {
- value = "${google_compute_instance.stack.network_interface.0.network_ip}"
+output "internal_ip_docker" {
+ value = "${google_compute_instance.docker.network_interface.0.network_ip}"
  }
 
-
-/*
-# create a public IP address for our google compute instance to utilize
-resource "google_compute_address" "static" {
-  name = "vm-public-address"
-  }
-  
-  output "address" {
-    value= "${vm-public-address}"
-  }
-  
-  */
-  
   
