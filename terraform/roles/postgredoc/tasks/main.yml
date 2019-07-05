@@ -1,0 +1,39 @@
+---
+#- include:   configure.yml
+#  when: not  service.stat.exists
+
+
+
+- name: Build image with build args
+  docker_image:
+    name: ans/postgre:10
+    build:
+      dockerfile: postgreUbuntuDocfile
+      path: roles/postgredoc/files/
+      args:
+        POSTGRE_VER: 10
+        log_volume: /var/log/myapp
+        listen_port: 8080
+    source: build
+
+
+- name: Log into DockerHub
+  docker_login:
+    username: ttserg
+    password: '{{ dockerhubpass }}'
+  changed_when: False
+
+- name: push  image to dockerhub
+  docker_image:
+    name: ans/postgre:10
+#    repository: ttserg/postgre:10
+    repository: ttserg/postgre
+    tag: "10"
+    push: yes
+    source: local
+
+
+- name: Log out of DockerHub
+  docker_login:
+      state: absent
+

@@ -1,0 +1,12 @@
+---
+
+- name: Create a data container
+  docker_container:
+    name: bennginx
+    image: ttserg/nginx:1.16.0
+    state: started
+    ports:
+      - "80:80"
+#    volumes:
+#      - /data
+

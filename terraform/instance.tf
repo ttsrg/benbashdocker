@@ -2,6 +2,14 @@
 terraform {
   required_version = "~>0.12.0"
   }
+
+/*
+resource "docker_container" "ubuntu" {
+  name  = "foo"
+    image = "tomcat"
+}    
+*/  
+  
   
 // A single Google Cloud Engine instance
 resource "google_compute_instance" "stack" {
@@ -9,6 +17,7 @@ resource "google_compute_instance" "stack" {
 ### count = "${var.count}"
 metadata_startup_script = "docker ps"
 
+    
  metadata = {
             ssh-keys = "${var.sshuser}:${file("${var.public_key_path}")}"
 #            "gce-container-declaration" = "${module.gce-container.metadata_value}"
@@ -43,14 +52,21 @@ CONTAINER
    }
  }
 
-
+#build container workaround curve
+/*
 
 provisioner "local-exec" {
-  command = "$(pwd)/files/1buildpostgre.sh -ci=ttserg/postgre -av=10  -cu=postgres -dbsu=gerrit -dbsup=gerrit -dbsdb=reviewdb  -f=files/postgreUbuntuDocfile "
+  command = "$(pwd)/files/1buildpostgre.sh -ci=ttserg/postgre -av=10  -cu=postgres -dbsu=gerrit -dbsup=gerrit -dbsdb=reviewdb  -f=files/postgreUbuntuDocfile"
   interpreter = ["/bin/bash", "-c"]
   }
   
+*/
 
+provisioner "local-exec" {
+ command = "ansible-playbook -u devops  -i '${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip},' --private-key ${var.private_key_path --tags=nginxrun} ../ansible/gerrit.yml"    
+ interpreter = ["/bin/bash", "-c"]
+      }
+      
 
 // Make sure soft  are installed on all new instances for later steps
 # metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync"

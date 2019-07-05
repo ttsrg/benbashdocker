@@ -1,0 +1,60 @@
+- hosts: local
+  gather_facts: no
+  name: pretasks if need
+  pre_tasks:
+   - name: shell
+     debug:
+        msg: "Warning. Tasks is working:" 
+### python exists in centos
+
+
+#  roles: 
+#   - build
+#   - docker
+#  become: yes
+
+
+#- name: Install docker
+#  hosts: doc2, doc3
+#  tags: docker
+#  roles:
+#  -  docker
+#  - dockercompose
+#  - nginxdc
+#  become: yes
+  
+- name: build and start postgre-docker
+  hosts: local
+  gather_facts: no
+  tags: postgredoc
+  roles:
+  - postgredoc
+
+#- name: build and start gerrit-docker
+#  hosts: doc2
+#  tags: gerritdoc
+#  roles:
+#  - gerritdoc          
+  
+
+- name: build  nginx-docker
+  hosts: local
+  gather_facts: no
+  tags: nginxbuild
+  roles:
+  - nginxbuild  
+  
+
+- name: run nginx-docker
+  hosts: local
+  gather_facts: no
+  tags: nginxrun
+  roles:
+  - nginxrun
+  
+
+#- name: install python/pip  for docker
+#  hosts: doc2
+#  tags: pythondoc
+#  roles:
+#  - pythondoc
