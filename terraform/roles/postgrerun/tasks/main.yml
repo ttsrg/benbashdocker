@@ -1,0 +1,32 @@
+---
+
+- name: Create a network
+  docker_network:
+    name: gerrit-net
+
+- name: create volume
+  docker_volume:
+    name: ben_postgre_sql
+
+- name: create volume
+  docker_volume:
+    name: ben_postgre_etc
+    
+
+- name: create volume
+  docker_volume:
+    name: ben_postgre_log
+
+- name: Create a data container
+  docker_container:
+    name: benpostgre
+    image: ttserg/postgre:10
+    state: started
+    networks:
+      - name: gerrit-net
+#    ports:
+#      - "5432:5432"
+    volumes:
+    - ben_postgre_sql:/var/lib/postgresql
+    - ben_postgre_etc:/etc/postgresql
+    - ben_postgre_log:/var/log/postgresql

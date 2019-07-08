@@ -7,3 +7,4 @@ docker-compose.yml
 *terraform.tfstate*
 *.txt
 /terraform/.*
+teraform/.old/*

@@ -23,12 +23,12 @@
 #  - nginxdc
 #  become: yes
   
-- name: build and start postgre-docker
-  hosts: local
+- name: build  postgre-docker
+  hosts: localhost
   gather_facts: no
-  tags: postgredoc
+  tags: postgrebuild
   roles:
-  - postgredoc
+  - postgrebuild
 
 #- name: build and start gerrit-docker
 #  hosts: doc2

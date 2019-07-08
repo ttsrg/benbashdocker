@@ -1,0 +1,41 @@
+---
+
+- name: Log into DockerHub
+  docker_login:
+    username: ttserg
+    password: '{{ dockerhubpass }}'
+  changed_when: False
+
+
+### may push w/o separate block
+
+- name: Build image with build args
+  docker_image:
+    name: ttserg/nginx
+    tag: 1.16.0
+    build:
+      dockerfile: nginxUbuntuDocfile
+      path: roles/nginxbuild/files/
+      args:
+        NGINX_VER: 1.16.0
+#        log_volume: /var/log/myapp
+#        listen_port: 8080
+    push: yes
+    source: build
+
+
+
+#- name: push  image to dockerhub
+#  docker_image:
+#    name: ttserg/nginx
+#    tag: 1.16.0
+#    repository: ttserg/nginx
+#    tag: 1.16.0
+#    push: yes
+#    source: local
+
+
+- name: Log out of DockerHub
+  docker_login:
+    state: absent
+

@@ -1,9 +1,0 @@
----
-#- include:   configure.yml
-
-- name: install pip
-  yum:
-    name: docker-compose
-    state: installed
-  become: yes          
-

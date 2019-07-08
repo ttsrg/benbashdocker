@@ -66,7 +66,11 @@ default = "cos-cloud/cos-stable"
 
 
 variable "image" {
-default = "debian-cloud/debian-9"
+ description = "image for default stack"
+# default = "debian-cloud/debian-9"
+ default = "centos-cloud/centos-7"
+#default = "cos-cloud/cos-stable"
+
 }
 
 

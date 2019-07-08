@@ -1,9 +1,0 @@
----
-#- include:   configure.yml
-
-- name: Build image and with build args
-  docker_container:
-    name: nginxtestttt
-    image: nginx:latest
-    state: started
-

@@ -15,16 +15,19 @@ resource "docker_container" "ubuntu" {
 resource "google_compute_instance" "stack" {
 //###"${var.google_compute_instance}" 
 ### count = "${var.count}"
-metadata_startup_script = "docker ps"
+//metadata_startup_script = "docker ps"
 
     
- metadata = {
-            ssh-keys = "${var.sshuser}:${file("${var.public_key_path}")}"
+metadata = {
+  ssh-keys = "${var.sshuser}:${file(var.public_key_path)}"
 #            "gce-container-declaration" = "${module.gce-container.metadata_value}"
-            # gce-container-declaration = "${var.docker_declaration}"
+#       gce-container-declaration = "${var.docker_declaration}"
 #              gce-container-declaration = "${var.docker_declaration2}"
 
-/*
+
+
+### only ONE container runs in metadata
+
 gce-container-declaration = <<CONTAINER
 spec:
   containers:
@@ -35,8 +38,8 @@ spec:
     restartPolicy: Always
                   
 CONTAINER
-*/
- }
+}
+ 
  
  
  name         = "${var.instance_name}"
@@ -61,12 +64,12 @@ provisioner "local-exec" {
   }
   
 */
-
+/*
 provisioner "local-exec" {
  command = "ansible-playbook -u devops  -i '${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip},' --private-key ${var.private_key_path --tags=nginxrun} ../ansible/gerrit.yml"    
  interpreter = ["/bin/bash", "-c"]
       }
-      
+*/      
 
 // Make sure soft  are installed on all new instances for later steps
 # metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync"
