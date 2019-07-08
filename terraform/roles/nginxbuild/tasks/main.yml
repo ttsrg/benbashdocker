@@ -15,7 +15,7 @@
     tag: 1.16.0
     build:
       dockerfile: nginxUbuntuDocfile
-      path: roles/nginxbuild/files/
+      path: ./roles/nginxbuild/files/
       args:
         NGINX_VER: 1.16.0
 #        log_volume: /var/log/myapp

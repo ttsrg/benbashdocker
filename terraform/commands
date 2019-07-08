@@ -1,0 +1,4 @@
+export ANSIBLE_STDOUT_CALLBACK=debug
+
+ansible-playbook   buildcontainers.yml --tags=gerritbuild -vvv
+ansible-playbook   -u devops --key-file "~/.ssh/gcloud_id_rsa" runcontainers.yml --tags=postgrerun -i stage

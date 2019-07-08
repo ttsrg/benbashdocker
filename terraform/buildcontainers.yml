@@ -30,28 +30,21 @@
   roles:
   - postgrebuild
 
-#- name: build and start gerrit-docker
-#  hosts: doc2
-#  tags: gerritdoc
-#  roles:
-#  - gerritdoc          
+- name: build and start gerrit-docker
+  hosts: localhost
+  tags: gerritbuild
+  roles: 
+  - gerritbuild          
   
 
 - name: build  nginx-docker
-  hosts: local
+  hosts: localhost
   gather_facts: no
   tags: nginxbuild
   roles:
   - nginxbuild  
   
 
-- name: run nginx-docker
-  hosts: local
-  gather_facts: no
-  tags: nginxrun
-  roles:
-  - nginxrun
-  
 
 #- name: install python/pip  for docker
 #  hosts: doc2

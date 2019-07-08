@@ -1,0 +1,37 @@
+---
+
+
+- name: create volume
+  docker_volume:
+    name: ben_gerrit_git
+
+- name: create volume
+  docker_volume:
+    name: ben_gerrit_index
+    
+
+- name: create volume
+  docker_volume:
+    name: ben_gerrit_cache
+    
+- name: create volume
+  docker_volume:
+      name: ben_gerrit_etc
+      
+
+- name: Create a data container
+  docker_container:
+    name: bengerrit
+    image: ttserg/gerrit:3.0.0
+    state: started
+    networks:
+      - name: gerrit-net
+#    ports:
+#      - "8080:8080"
+    volumes:
+    - ben_gerrit_git:/home/gerrit/gerrit/git
+    - ben_gerrit_cache:/home/gerrit/gerrit/cache
+    - ben_gerrit_index:/home/gerrit/gerrit/index
+    - ben_gerrit_etc:/home/gerrit/gerrit/etc
+
+

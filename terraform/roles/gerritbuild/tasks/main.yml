@@ -1,7 +1,4 @@
 ---
-#- include:   configure.yml
-#  when: not  service.stat.exists
-
 
 - name: Log into DockerHub
   docker_login:
@@ -12,12 +9,12 @@
 
 - name: Build image with build args
   docker_image:
-    name: ans/postgre:10
+    name: ttserg/gerrit:3.0.0
     build:
-      dockerfile: postgreUbuntuDocfile
-      path: roles/postgrebuild/files/
+      dockerfile: gerritCentosDocfile
+      path: roles/gerritbuild/files/
       args:
-        POSTGRE_VER: 10
+        APP_VER: 3.0.0
 #        log_volume: /var/log/myapp
 #        listen_port: 8080
     source: build

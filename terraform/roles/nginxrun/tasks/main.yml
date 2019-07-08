@@ -5,8 +5,8 @@
     name: bennginx
     image: ttserg/nginx:1.16.0
     state: started
+    networks:
+      - name: gerrit-net    
     ports:
       - "80:80"
-#    volumes:
-#      - /data
 
