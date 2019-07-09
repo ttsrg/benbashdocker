@@ -1,9 +1,36 @@
 ---
 
+#- name: Wait 300 seconds for target connection to become reachable/usable
+#  wait_for:
+#    timeout: 300
+
+- name: Check if Docker is installed
+  command: systemctl status docker
+  register: docker_check
+  ignore_errors: yes
+  changed_when: False
+
+- name: Check if ---===docker info===----   is working
+  command: docker info
+  register: docker_info
+  ignore_errors: yes
+  changed_when: False
+                
+#- name: add user to group docker -force
+#  command:  sg docker
+#  changed_when: False
+##  when: docker_info.stderr.find('permission denied') != -1
+#  when: docker_info.rc == 1
+    
+#stat /var/run/docker.sock
+#ps aux | grep dockerd
+# id
+
 - name: Create a network
   docker_network:
     name: gerrit-net
-
+#  become: yes
+  
 - name: create volume
   docker_volume:
     name: ben_postgre_sql

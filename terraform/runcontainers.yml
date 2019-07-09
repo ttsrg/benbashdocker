@@ -1,11 +1,13 @@
 
-
+### meta in postgre
 - name: install docker ,pip and spec library 
   hosts: stack
   gather_facts: no
-  tags: dockerinstall
+  tags: 
+    - dockerinstall
+#   - postgrerun
   roles:
-  - dockerinstall
+    - dockerinstall
 
   
 - name: run postgre-docker

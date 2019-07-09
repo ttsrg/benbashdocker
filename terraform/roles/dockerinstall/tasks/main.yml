@@ -22,7 +22,7 @@
     dest: /etc/yum.repos.d/docer-ce.repo
     section: 'docker-ce-edge'
     option: enabled
-    value: 0
+    value: '0'
   become: yes
   when: docker_check.stderr.find('service could not be found') != -1
 
@@ -40,7 +40,7 @@
   changed_when: False
   become: yes
 
-- name: Install Docker and pip
+- name: Install Docker-ce and python-pip
   package:
     name:
       - docker-ce
@@ -83,10 +83,15 @@
     append: yes
   become: yes
   
-- name: restart Docker service
-  service:
-    name: docker
-    state: restarted
-  become: yes
-  changed_when: False
+#- name: restart Docker service
+#  service:
+#    name: docker
+#    state: restarted
+#  become: yes
+#  changed_when: False
                     
+- name: set selinux to permissive
+  selinux:
+#    policy: targeted
+    state: disabled
+  become: yes

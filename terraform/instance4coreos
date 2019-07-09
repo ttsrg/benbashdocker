@@ -20,7 +20,7 @@ metadata = {
 
 
 
-### only ONE container runs in metadata, works only for coreOSdocker 
+### only ONE container runs in metadata
 
 gce-container-declaration = <<CONTAINER
 spec:
