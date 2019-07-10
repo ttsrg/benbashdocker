@@ -57,3 +57,4 @@
     - ben_postgre_sql:/var/lib/postgresql
     - ben_postgre_etc:/etc/postgresql
     - ben_postgre_log:/var/log/postgresql
+    restart_policy:  always

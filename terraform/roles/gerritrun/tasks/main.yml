@@ -33,5 +33,5 @@
     - ben_gerrit_cache:/home/gerrit/gerrit/cache
     - ben_gerrit_index:/home/gerrit/gerrit/index
     - ben_gerrit_etc:/home/gerrit/gerrit/etc
-
+    restart_policy:  always
 

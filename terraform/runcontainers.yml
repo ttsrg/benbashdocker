@@ -9,6 +9,8 @@
   roles:
     - dockerinstall
 
+
+### become is workaround.....
   
 - name: run postgre-docker
   hosts: stack
@@ -16,7 +18,7 @@
   tags: postgrerun
   roles:
   - postgrerun
-  
+  become: yes
   
 - name: run postgre-docker
   hosts: stack
@@ -24,6 +26,7 @@
   tags: gerritrun
   roles:
   - gerritrun
+  become: yes
 
 - name: run nginx-docker
   hosts: stack
@@ -31,7 +34,7 @@
   tags: nginxrun
   roles:
   - nginxrun
-
+  become: yes
 
 
 #- name: install python/pip  for docker

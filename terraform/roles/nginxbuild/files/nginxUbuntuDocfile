@@ -21,8 +21,8 @@ COPY nginxUbuntuDocfile /
 #COPY files/nginx.conf /usr/local/nginx/conf/
 COPY nginx.conf /usr/local/nginx/conf/
 
-RUN ln -sf /dev/stdout /usr/local/nginx/logs/access.log \
-    && ln -sf /dev/stderr /usr/local/nginx/logs/error.log
+#RUN ln -sf /dev/stdout /usr/local/nginx/logs/access.log \
+#    && ln -sf /dev/stderr /usr/local/nginx/logs/error.log
 
 
 EXPOSE 80

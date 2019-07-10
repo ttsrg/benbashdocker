@@ -90,8 +90,8 @@
 #  become: yes
 #  changed_when: False
                     
-- name: set selinux to permissive
+- name: set selinux to disable
   selinux:
-#    policy: targeted
+##    policy: targeted
     state: disabled
   become: yes
