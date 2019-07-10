@@ -14,14 +14,6 @@
 #  become: yes
 
 
-#- name: Install docker
-#  hosts: doc2, doc3
-#  tags: docker
-#  roles:
-#  -  docker
-#  - dockercompose
-#  - nginxdc
-#  become: yes
   
 - name: build  postgre-docker
   hosts: localhost
