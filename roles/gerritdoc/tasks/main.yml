@@ -1,14 +1,35 @@
 ---
-#- include:   configure.yml
 
-- name: Build image and with build args
+- name: Copy files
+  copy: 
+    src: '{{ item }}'
+    dest: /tmp/path/
+  with_items:
+      - gerritCentosDocfile  
+      - gerrit.config  
+      - secure.config
+      
+
+- name: Build image with build args
   docker_image:
     name: ben/gerrit:3.0.0
     build:
-      path: files/
+      path: /tmp/path/
       args:
-        log_volume: /var/log/myapp
-        listen_port: 8080
-      dockerfile: files/gerritCentosDocfile    
+        APP_VER: 3.0.0
+      dockerfile: gerritCentosDocfile
     source: build
 
+- name: Create a data container
+  docker_container:
+    name: bengerrit
+    image: ben/gerrit:3.0.0
+    state: started
+    networks:
+      - name: gerrit-net
+    volumes:
+    - ben_gerrit_git:/home/gerrit/gerrit/git
+    - ben_gerrit_cache:/home/gerrit/gerrit/cache
+    - ben_gerrit_index:/home/gerrit/gerrit/index
+    - ben_gerrit_etc:/home/gerrit/gerrit/etc
+    restart_policy:  always

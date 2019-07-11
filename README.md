@@ -10,11 +10,14 @@ Should use ansible=>2.8
 
 
 >Start stack at remote server:
-* > ansible-playbook -i inventory/stage -l doc2 playbook.yml
+* > RUN startstack.sh
+* > or  
+* > ansible-playbook -i inventory/stage -l doc3 playbook.yml
 
 
-**After deploy  APP will  available at - [gerrit](http://doc2)**
+**After deploy  APP will  available at - [gerrit](http://doc3)**
 
 
 ```bash
+Starts rmALL.sh  at /home/vagrant/ remote host removes all docker settings .
 ```

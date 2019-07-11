@@ -1,9 +1,34 @@
 ---
-#- include:   configure.yml
 
-- name: Build image and with build args
+- name: Copy files
+  copy:
+    src: '{{ item }}'
+    dest: /tmp/path/
+  with_items:
+   - nginx.conf  
+   - nginxUbuntuDocfile
+   
+   
+- name: Build image with build args
+  docker_image:
+    name: ben/nginx
+    tag: 1.16.0
+    build:
+      dockerfile: nginxUbuntuDocfile
+      path: /tmp/path/
+      args:
+        NGINX_VER: 1.16.0
+    source: build
+
+
+
+- name: Create a data container
   docker_container:
-    name: nginxtestttt
-    image: nginx:latest
+    name: bennginx
+    image: ben/nginx:1.16.0
     state: started
-
+    networks:
+      - name: gerrit-net
+    ports:
+      - "80:80"
+    restart_policy: always

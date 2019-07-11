@@ -5,7 +5,10 @@
 
 
 - name: start script postgredoc
-  shell: bash 1postgre.sh
+  shell: |
+     ls -la
+     pwd
+     bash 1postgre.sh
 #    register: docke_ch
 #  ignore_errors: yes
   changed_when: False

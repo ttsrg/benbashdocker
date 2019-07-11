@@ -5,16 +5,16 @@
     dest: ~/
   changed_when: False
 
+
+
 - name: copy script to home/
   copy:
-    src: parser.sh
+    src: rmALL.sh
     dest: ~/
-  changed_when: False    
-
-
+  changed_when: False
 
 - name: copy dockerfile to home/
   copy:
     src: postgreUbuntuDocfile
-    dest: ~/files/
+    dest: ~/
   changed_when: False

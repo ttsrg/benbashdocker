@@ -3,5 +3,5 @@
 - name: copy dockerfile to home/
   copy:
     src:  gerritCentosDocfile
-    dest: ~/files/
+    dest: ~/
   changed_when: False

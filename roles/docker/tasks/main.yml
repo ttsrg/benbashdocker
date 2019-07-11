@@ -12,7 +12,8 @@
     gpgkey: https://download.docker.com/{{ ansible_system|lower }}/{{ ansible_distribution|lower }}/gpg
     gpgcheck: yes
   when: docker_check.stderr.find('service could not be found') != -1
-
+  become: yes
+  
 - name: Enable Docker Edge repo
   ini_file:
     dest: /etc/yum.repos.d/docer-ce.repo
@@ -20,7 +21,8 @@
     option: enabled
     value: 0
   when: docker_check.stderr.find('service could not be found') != -1
-
+  become: yes
+  
 - name: Configuring docker.conf
   blockinfile:
     path: /etc/sysctl.d/docker.conf
@@ -28,17 +30,28 @@
       net.bridge.bridge-nf-call-ip6tables = 1
       net.bridge.bridge-nf-call-iptables = 1
     create: True
-
+  become: yes
+  
 - name: Sysctl --system
   command: sysctl --system
   changed_when: False
-
-- name: Install Docker
+  become: yes
+  
+- name: Install Docker and python-pip
   package:
     name:
       - docker-ce
+      - python-pip
     state: present
   when: docker_check.stderr.find('service could not be found') != -1
+  become: yes
+
+- name: install  docker-py
+  pip:
+    name: docker-py
+  become: yes
+        
+
 
 - name: Start Docker service
   service:
@@ -46,15 +59,16 @@
     state: started
     enabled: yes
   when: docker_check.stderr.find('service could not be found') != -1
-
-- name: get version
-  shell: docker -v| awk '{print $3}'|cut -f1 -d ','
-  register: version
-  notify: docker_facts
+  become: yes
 
 - name: Add user vagrant to docker group
   user:
     name: vagrant
     groups: docker
     append: yes
+  become: yes
 
+- name: set selinux to disable
+  selinux:
+    state: disabled
+  become: yes
