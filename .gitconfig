@@ -1,0 +1,46 @@
+# -*- mode: gitconfig -*-
+# git log --graph --color-words --color --source --decorate --all
+# git log --graph --oneline --all
+# git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+
+[user]
+  email = srg@nomail.xez.com
+  name = srgnewcolorcheme
+
+[core]
+  editor = nano
+  excludesfile = $HOME/.config/git/ignore
+  autocrlf = input
+[color]
+  ui = auto
+[alias]
+  a  = add
+  aa = add --all
+  ap = add --patch
+  br = branch
+  ca = commit --amend
+  ci = commit --verbose
+  co = checkout
+  db = "!f() { [ -n \"$1\" ] && git branch -d $1 && git push origin :$1; }; f"
+  dc = diff --cached
+  di = diff
+  fa = fetch --all
+  la = !git lg --all
+  lg = log --oneline --decorate --graph
+  st = status
+  r  = !git --no-pager lg -20
+  ra = !git --no-pager r --all
+        up = !git fetch origin && git rebase origin/master
+#[merge]
+#  ff = only
+[push]
+  default = current
+[status]
+  branch = 1
+  short = 1
+[diff]
+  mnemonicprefix = true
+[fetch]
+  prune = true
+[format]
+  pretty = format:%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset
