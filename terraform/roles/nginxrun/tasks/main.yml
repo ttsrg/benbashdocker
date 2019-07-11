@@ -6,7 +6,7 @@
     image: ttserg/nginx:1.16.0
     state: started
     networks:
-      - name: gerrit-net    
+      - name: gerrit-net
     ports:
       - "80:80"
     restart_policy: always
