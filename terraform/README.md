@@ -1,34 +1,34 @@
-# bendocker
-Creating stack nginx/postgre/java_app using terraform and ansible-playbook
+#TERRAFORM practice
 
+ 
 
-## Usage
+# TASKS
 ```bash
-
-1 Script 'builddockerimages.sh'   builds images locally,  have to change variables "dockerhubname=ttserg" and 
-"dockerhubpass" via symbol link
-
-2 Script 'startstack.sh' runs containers on google-compute-instance(centos 7), have to  use GCP's ssh-key and put it to ~/.ssh/gcloud_id_rsa 
- if it necessary have to change "dockerhubrepo" 
+Terraform code should have :
+   1. Virtual network
+      2. Subnets
+         3. Security groups
+            4.  Load balancer in Public network
+               5. VMs in PRivate network
+                  6. Virtual network + Subnets + SG in folder network, LB in folder lb,  2 VMs in vms folder with different names and disk size
+                     7. In common file should call of all 3 modules
+                        8. variables file should be specified
+                           9  All the resources should have outputs and attached to report
+                              10. state file should be not local
 ```
 
 
 
 >Also  may  start commands manual for example:
-* > export ANSIBLE_STDOUT_CALLBACK=debug   " - useful stdout of ansible"
-* > ansible-playbook   builddockerimages.yml 
-* > ansible-playbook   builddockerimages.yml -l localhost  --tags=gerritbuild -vvv  # "- (tags and verbose level)"
-* > ansible-playbook   -u devops --key-file "~/.ssh/gcloud_id_rsa" runcontainers.yml  -i stage
-
-
+* > terraform apply
+* > terraform apply -var-file="gcp.tfvars"
+* > terraform taint -module=salt_master aws_instance.salt_master  # The taint command can be used to taint specific resources within a module
 **After deploy  APP will be available at output of terraform = ext_nat_ip  - "bash echo $(terraform output | grep -w ext_nat_ip|awk '{print $3}')"
 
 
-used 
-docker version 18.09.6
-ansible 2.8
+> destroy
+* > terraform destroy
 
 
 
 
-PS terracoreos/ - in progress

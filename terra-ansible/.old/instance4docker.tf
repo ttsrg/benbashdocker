@@ -2,26 +2,20 @@
 terraform {
   required_version = "~>0.12.0"
   }
-
-  
   
 // A single Google Cloud Engine instance
-resource "google_compute_instance" "stack" {
+resource "google_compute_instance" "docker" {
 //###"${var.google_compute_instance}" 
 ### count = "${var.count}"
 //metadata_startup_script = "docker ps"
 
-    
-metadata = {
-  ssh-keys = "${var.sshuser}:${file(var.public_key_path)}"
+ metadata = {
+            ssh-keys = "${var.sshuser}:${file("${var.public_key_path}")}"
 #            "gce-container-declaration" = "${module.gce-container.metadata_value}"
-#       gce-container-declaration = "${var.docker_declaration}"
+            # gce-container-declaration = "${var.docker_declaration}"
 #              gce-container-declaration = "${var.docker_declaration2}"
 
-
-
-### only ONE container runs in metadata, works only for coreOSdocker 
-
+/*
 gce-container-declaration = <<CONTAINER
 spec:
   containers:
@@ -32,47 +26,31 @@ spec:
     restartPolicy: Always
                   
 CONTAINER
-}
+*/
+ }
  
  
- 
- name         = "${var.instance_name}"
- machine_type = "${var.machine_type}"
+ name         = "${var.instance_name_docker}"
+ machine_type = "${var.machine_type_docker}"
  zone         = "${var.region_zone}"
  tags =  ["stack"]
  ###["${var.tags}"]
 
  boot_disk {
    initialize_params {
-     image = var.image
+     image = var.image_docker
 #     size = "13"
    }
  }
 
-#build container workaround curve
-/*
 
+/*
 provisioner "local-exec" {
-  command = "$(pwd)/files/1buildpostgre.sh -ci=ttserg/postgre -av=10  -cu=postgres -dbsu=gerrit -dbsup=gerrit -dbsdb=reviewdb  -f=files/postgreUbuntuDocfile"
+  command = "$(pwd)/files/1buildpostgre.sh -ci=ttserg/postgre -av=10  -cu=postgres -dbsu=gerrit -dbsup=gerrit -dbsdb=reviewdb  -f=files/postgreUbuntuDocfile "
   interpreter = ["/bin/bash", "-c"]
   }
-  
 */
 
-############# ansible
-/*
-provisioner "local-exec" {
- command = "ansible-playbook   -u devops --key-file ~/.ssh/gcloud_id_rsa runcontainers.yml  -i stage"
-#  interpreter = ["/bin/bash", "-c"]
-        }
-*/        
- 
-/*
-provisioner "local-exec" {
- command = "ansible-playbook -u devops  -i '${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip},' --private-key ${var.private_key_path --tags=nginxrun} ../ansible/gerrit.yml"    
- interpreter = ["/bin/bash", "-c"]
-      }
-*/      
 
 // Make sure soft  are installed on all new instances for later steps
 # metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync"
@@ -85,7 +63,6 @@ provisioner "local-exec" {
    }
  }
 
-/*
   provisioner "file" {
      source      = ".scr.sh"
          destination = "/tmp/script.sh"
@@ -101,7 +78,6 @@ provisioner "local-exec" {
        }
 
   }
-*/
            
 /*           
      provisioner "remote-exec" {
@@ -156,25 +132,12 @@ provisioner "local-exec" {
 
 ###output "${var.instance_name}.ip" {
 
-output "ext_nat_ip" {
- value = "${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip}"
+output "ext_nat_ip_docker" {
+ value = "${google_compute_instance.docker.network_interface.0.access_config.0.nat_ip}"
 }
 
-output "internal_ip" {
- value = "${google_compute_instance.stack.network_interface.0.network_ip}"
+output "internal_ip_docker" {
+ value = "${google_compute_instance.docker.network_interface.0.network_ip}"
  }
 
-
-/*
-# create a public IP address for our google compute instance to utilize
-resource "google_compute_address" "static" {
-  name = "vm-public-address"
-  }
-  
-  output "address" {
-    value= "${vm-public-address}"
-  }
-  
-  */
-  
   

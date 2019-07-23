@@ -6,5 +6,5 @@ docker-compose.yml
 *.credsfake*
 *terraform.tfstate*
 *.txt
-/terraform/.*
+#/terraform/.*
 teraform/.old/*

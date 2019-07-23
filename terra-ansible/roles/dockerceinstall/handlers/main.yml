@@ -1,0 +1,8 @@
+---
+- name: docker_facts
+  copy:
+    content: >
+      {
+        "Version": "{{ version.stdout }}",
+      }
+    dest: /etc/ansible/facts.d/docker.fact

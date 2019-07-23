@@ -1,0 +1,98 @@
+module "gce-container" {
+  source = "github.com/terraform-google-modules/terraform-google-container-vm"
+  version = "0.1.0"
+
+  container = {
+    image="gcr.io/google-samples/hello-app:1.0"
+    env = [
+      {
+        name = "TEST_VAR"
+        value = "Hello World!"
+      }
+    ],
+    volumeMounts = [
+      {
+        mountPath = "/cache"
+        name      = "tempfs-0"
+        readOnly  = "false"
+      },
+      {
+        mountPath = "/persistent-data"
+        name      = "data-disk-0"
+        readOnly  = "false"
+      },
+    ]
+  }
+
+  volumes = [
+    {
+      name = "tempfs-0"
+
+      emptyDir = {
+        medium = "Memory"
+      }
+    },
+    {
+      name = "data-disk-0"
+
+      gcePersistentDisk = {
+        pdName = "data-disk-0"
+        fsType = "ext4"
+      }
+    },
+  ]
+
+  restart_policy = "Always"
+}
+
+
+// A single Google Cloud Engine instance
+resource "google_compute_instance" "stack" {
+//###"${var.google_compute_instance}" 
+### count = "${var.count}"
+ metadata = {
+            ssh-keys = "${var.sshuser}:${file("${var.public_key_path}")}"
+            "gce-container-declaration" = "${module.gce-container.metadata_value}"
+            # gce-container-declaration = "${var.docker_declaration}"
+#              gce-container-declaration = "${var.docker_declaration2}"
+ }
+ name         = "${var.instance_name}"
+ machine_type = "${var.machine_type}"
+ zone         = "${var.region_zone}"
+ tags =  ["stack"]
+ ###["${var.tags}"]
+
+ boot_disk {
+   initialize_params {
+     image = "${var.image}"
+#     size = "13"
+   }
+ }
+
+// Make sure soft  are installed on all new instances for later steps
+# metadata_startup_script = "sudo apt-get update; sudo apt-get install -yq build-essential python-pip rsync"
+
+ network_interface {
+   network = "default"
+   access_config {
+     // Include this section to give the VM an external ip address
+   }
+ }
+
+
+
+}
+#output "ip" {
+#       value = "${google_compute_instance.stack.public_ip}"
+#               }
+
+###output "${var.instance_name}.ip" {
+
+output "nat_ip" {
+ value = "${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip}"
+}
+
+output "internal_ip" {
+ value = "${google_compute_instance.stack.network_interface.0.network_ip}"
+ }
+ 

@@ -1,0 +1,58 @@
+---
+- name: Check if Docker is installed
+  command: systemctl status docker
+  register: docker_check
+  ignore_errors: yes
+  changed_when: False
+
+
+- name: Install  python-pip
+  package:
+    name:
+      - python-pip
+    state: present
+  when: docker_check.stderr.find('service could not be found') != -1
+  become: yes
+
+- name: install  docker-py
+  pip:
+    name: docker-py
+  become: yes    
+
+
+#- name: Start Docker service
+#  service:
+#    name: docker
+3    state: started
+#    enabled: yes
+#3  when: docker_check.stderr.find('service could not be found') != -1
+#  become: yes
+  
+
+- name: Add user  to docker group
+  user:
+    name: devops
+    groups: docker
+    append: yes
+  become: yes
+
+
+- name: Add google cloud user   to docker group
+  user:
+    name: ttserg
+    groups: docker
+    append: yes
+  become: yes
+  
+#- name: restart Docker service
+#  service:
+#    name: docker
+#    state: restarted
+#  become: yes
+#  changed_when: False
+                    
+- name: set selinux to disable
+  selinux:
+##    policy: targeted
+    state: disabled
+  become: yes

@@ -4,9 +4,3 @@ provider "google" {
   project     = "${var.project_name}"
   region      = "${var.region}"
 }
-
-module "vms" {
-  source        = "./modules/vms/"
-  instance_name = "${var.instance_name}"
-
-}

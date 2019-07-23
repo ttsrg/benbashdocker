@@ -1,0 +1,155 @@
+{
+  "version": 4,
+  "terraform_version": "0.12.2",
+  "serial": 553,
+  "lineage": "003b2e65-77d8-0c74-bc4d-6d09d9006a5c",
+  "outputs": {
+    "ext_nat_ip": {
+      "value": "35.247.105.206",
+      "type": "string"
+    },
+    "internal_ip": {
+      "value": "10.138.0.45",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "google_compute_firewall",
+      "name": "http-80",
+      "provider": "provider.google",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "allow": [
+              {
+                "ports": [
+                  "80"
+                ],
+                "protocol": "tcp"
+              },
+              {
+                "ports": [],
+                "protocol": "icmp"
+              }
+            ],
+            "creation_timestamp": "2019-07-17T02:11:05.845-07:00",
+            "deny": [],
+            "description": "",
+            "destination_ranges": [],
+            "direction": "INGRESS",
+            "disabled": false,
+            "id": "http-80",
+            "name": "http-80",
+            "network": "https://www.googleapis.com/compute/v1/projects/gerritben/global/networks/default",
+            "priority": 1000,
+            "project": "gerritben",
+            "self_link": "https://www.googleapis.com/compute/v1/projects/gerritben/global/firewalls/http-80",
+            "source_ranges": [
+              "0.0.0.0/0"
+            ],
+            "source_service_accounts": null,
+            "source_tags": null,
+            "target_service_accounts": null,
+            "target_tags": null,
+            "timeouts": null
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNDAwMDAwMDAwMDAsImRlbGV0ZSI6MjQwMDAwMDAwMDAwLCJ1cGRhdGUiOjI0MDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9"
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "google_compute_instance",
+      "name": "stack",
+      "provider": "provider.google",
+      "instances": [
+        {
+          "schema_version": 6,
+          "attributes": {
+            "allow_stopping_for_update": null,
+            "attached_disk": [],
+            "boot_disk": [
+              {
+                "auto_delete": true,
+                "device_name": "persistent-disk-0",
+                "disk_encryption_key_raw": "",
+                "disk_encryption_key_sha256": "",
+                "initialize_params": [
+                  {
+                    "image": "https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/centos-7-v20190619",
+                    "size": 10,
+                    "type": "pd-standard"
+                  }
+                ],
+                "kms_key_self_link": "",
+                "source": "https://www.googleapis.com/compute/v1/projects/gerritben/zones/us-west1-a/disks/gerrit"
+              }
+            ],
+            "can_ip_forward": false,
+            "cpu_platform": "Intel Broadwell",
+            "deletion_protection": false,
+            "description": null,
+            "disk": [],
+            "guest_accelerator": [],
+            "hostname": "",
+            "id": "gerrit",
+            "instance_id": "1522583612493617349",
+            "label_fingerprint": "42WmSpB8rSM=",
+            "labels": null,
+            "machine_type": "g1-small",
+            "metadata": {
+              "gce-container-declaration": "spec:\n  containers:\n  - name: test-2\n    image: 'tomcat'\n    stdin: false\n    tty: false\n    restartPolicy: Always\n                  \n",
+              "ssh-keys": "devops:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDNnWVc1E296N49bYZxbauLZX7sRUpBUUssqq1UjIqbQK6PICfRqDFDGjb0cpGpyA6XhBJLUFxcsq6wPi61M+fD8KgLroxyebxAj7lfJFyvSdeYNexfP3Rar9ZhqZuVOpVudvablfSgd+s5qbUsEEfNhkQikDK6pvbju+a2fdfv6SV07CMnVx7Cd5xtGQ25zFa3F4r4GMzaR6skyUltoJS/4YGbiQZR/xfIJicxsIuBS7MFRBle1Dci5BKStkMkJ9CBs6chdJWSmTzZcSI6MWFWKfy/0hdc+Ja1H7yEQa1PIDsvIPtQMYuE74nskjMSfHFU5I7HJ80/+q9hBMUZdhC/VSbyOGoM/ZJT+K8VauSSmkKfvUxzfYEhuG4jEWPRxSZH8fQoVKnd7xbn3tUqD0qH5aQyV5vd3uyX8rkzSaZr1SyfPU/Vo4nmByxQBsjzffjr8oObbxz7BRLfEJvCVZZrz2NRmLthSwU2yfvBZrd3vgDifU+HaLdvR8lK5vdRNkGtqzWC6cNDQhBOiZ3u0FCCNdvw2jnsaE6IXKTzj/B6qRTjjFttL7nSP9e3U5txOSk+jC2lrpQ4C/afunHZ2skdxx5OrwLotEE6wqOlY/jlRPMgE5NwTcaKly/4aLfFhZJFlJNUh+CcG27Gpz9YnJJPsnrPkLCqxsuWxlayqxktrQ== VBOXepm\n"
+            },
+            "metadata_fingerprint": "GLBrk-tcxmk=",
+            "metadata_startup_script": "",
+            "min_cpu_platform": "",
+            "name": "gerrit",
+            "network_interface": [
+              {
+                "access_config": [
+                  {
+                    "assigned_nat_ip": "",
+                    "nat_ip": "35.247.105.206",
+                    "network_tier": "PREMIUM",
+                    "public_ptr_domain_name": ""
+                  }
+                ],
+                "address": "",
+                "alias_ip_range": [],
+                "name": "nic0",
+                "network": "https://www.googleapis.com/compute/v1/projects/gerritben/global/networks/default",
+                "network_ip": "10.138.0.45",
+                "subnetwork": "https://www.googleapis.com/compute/v1/projects/gerritben/regions/us-west1/subnetworks/default",
+                "subnetwork_project": "gerritben"
+              }
+            ],
+            "project": "gerritben",
+            "scheduling": [
+              {
+                "automatic_restart": true,
+                "node_affinities": [],
+                "on_host_maintenance": "MIGRATE",
+                "preemptible": false
+              }
+            ],
+            "scratch_disk": [],
+            "self_link": "https://www.googleapis.com/compute/v1/projects/gerritben/zones/us-west1-a/instances/gerrit",
+            "service_account": [],
+            "shielded_instance_config": [],
+            "tags": [
+              "stack"
+            ],
+            "tags_fingerprint": "OLE4zR1XnvU=",
+            "timeouts": null,
+            "zone": "us-west1-a"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiNiJ9"
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,8 @@
 # bendocker
-Creating stack nginx/postgre/java_app by docker for testing
+Creating stack nginx/postgre/java_app by docker for testing using terraform w ansible
 
 
 
-##tERRAFORM
 
 ## Usage
 ```
@@ -12,12 +11,7 @@ Should use ansible=>2.8
 
 
 
->Start stack at remote server:
-* > ansible-playbook -i inventory/stage -l doc2 playbook.yml
-
-
-**After deploy  APP will  available at - [gerrit](http://doc2)**
-
-
 ```bash
+terraform/ - using centos7
+terracoreos/ - using container optimizated OS
 ```
