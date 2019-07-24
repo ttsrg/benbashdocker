@@ -1,12 +1,8 @@
-# Locks the version of Terraform for this particular use case
-terraform {
-  required_version = "~>0.12.0"
-}
 
 
 
 // A single Google Cloud Engine instance
-resource "google_compute_instance" "stack" {
+resource "google_compute_instance" "vm" {
 
 
   metadata = {
@@ -44,11 +40,11 @@ resource "google_compute_instance" "stack" {
 }
 
 
-output "external_ip" {
-  value = "${google_compute_instance.stack.network_interface.0.access_config.0.nat_ip}"
+output "external_ipold" {
+  value = "${google_compute_instance.vm.network_interface.0.access_config.0.nat_ip}"
 }
 
-output "internal_ip" {
-  value = "${google_compute_instance.stack.network_interface.0.network_ip}"
+output "internal_ipold" {
+  value = "${google_compute_instance.vm.network_interface.0.network_ip}"
 }
 

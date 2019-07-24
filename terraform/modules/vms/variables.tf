@@ -6,6 +6,7 @@ variable "region_zone" {
 
 variable "instance_name" {
   description = "The name of instance"
+  type = string
   default     = "default-instance"
 }
 

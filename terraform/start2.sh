@@ -1,6 +1,6 @@
 terraform fmt
 terraform plan
-terraform apply   -var-file="vm1.tfvars"   -auto-approve  
+terraform apply   -var-file="vm2.tfvars"   -auto-approve  
 #-var-file="variables.tf"
 
 
