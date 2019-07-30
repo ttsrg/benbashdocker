@@ -1,12 +1,16 @@
-variable "region_zone" {
-  default = "us-west1-a"
+variable "zone" {
+  default = "europe-west1-b"
+}
+
+variable "region" {
+  default = "europe-west1"
 }
 
 ### count = "${var.count}"
 
 variable "instance_name" {
   description = "The name of instance"
-  type = string
+  type        = string
   default     = "default-instance"
 }
 

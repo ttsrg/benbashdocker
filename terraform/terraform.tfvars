@@ -1,3 +1,3 @@
-instance_name = "vm1"
-image_size    = "11"
-region_zone   = "us-west1-a"
+instance_name = "vm111"
+image_size    = "12"
+zone   = "europe-west1-b"

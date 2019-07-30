@@ -1,9 +1,9 @@
 variable "region" {
-  default = "us-west1"
+  default = "europe-west1"
 }
 
-variable "region_zone" {
-  default = "us-west1-a"
+variable "zone" {
+  default = "europe-west1-b"
 }
 
 variable "project_name" {
@@ -42,10 +42,13 @@ variable "image_size" {
 
 
 
-variable "port_number" {
-  default = "80"
-}
+#variable "port_number" {
+#  default = "80"
+#}
 
+variable "ip_cidr_range" {
+  default = "10.100.0.0/16"
+}
 
 variable "image_docker" {
   #default = "debian-cloud/debian-9"
