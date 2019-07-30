@@ -6,13 +6,6 @@ variable "region" {
   default = "europe-west1"
 }
 
-### count = "${var.count}"
-
-variable "instance_name" {
-  description = "The name of instance"
-  type        = string
-  default     = "default-instance"
-}
 
 
 variable "machine_type" {
@@ -23,9 +16,6 @@ variable "machine_type" {
 variable "image_size" {
   default = "13"
 }
-
-
-
 
 
 
