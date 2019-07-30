@@ -17,9 +17,9 @@ output "int_ip_vm2" {
 }
 
 
-/*
+
 output vpc_self_link {
-  value = "${module.netvm.vpc_self_link}"
+  value = "${module.vms.vpc_self_link}"
 }
 
 
