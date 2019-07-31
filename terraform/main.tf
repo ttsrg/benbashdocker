@@ -13,14 +13,13 @@ provider "google" {
   zone        = var.zone
 }
 
-/*
 ##################################
-module "net" {
-  source = "./modules/network/"
+module "net2" {
+  source = "./modules/network2/"
   #  region      = "${var.region}"
   #  ip_cidr_range = var.ip_cidr_range
 }
-*/
+
 
 module "vms" {
   source = "./modules/vms/"
@@ -28,6 +27,19 @@ module "vms" {
   #            instance_name = "vm2"
   image_size = 14
   zone       = "${var.zone}"
+}
+
+data "google_compute_network" "my-network" {
+  name = "default-us-east1"
+}
+
+module "vms2" {
+  source     = "./modules/vms2/"
+  image_size = 14
+  zone       = "${var.zone}"
+  //  subnet_self_link = "${module.net2.subnet_self_link}"
+  //subnet_self_link = "${var.subnet_self_link}"
+
 }
 
 

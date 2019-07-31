@@ -17,7 +17,15 @@ output "int_ip_vm2" {
 }
 
 
+output subnet2_self_link {
+  value = "${module.net2.subnet_self_link}"
+}
 
+output subnet2_name {
+  value = "${module.net2.subnet_name}"
+}
+
+/*
 output vpc_self_link {
   value = "${module.vms.vpc_self_link}"
 }
