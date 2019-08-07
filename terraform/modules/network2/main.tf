@@ -27,6 +27,6 @@ resource "google_compute_firewall" "sg" {
 
   allow {
     protocol = "tcp"
-    ports    = ["${var.port_number}"]
+    ports    = "${var.ports_number}"
   }
 }

@@ -1,17 +1,4 @@
 ###count....
-
-
-output subnet3_self_link {
-  value = "${module.net3.subnet_self_link}"
-}
-
-output subnet3_name {
-  value = "${module.net3.subnet_name}"
-}
-
-
-
-/*
 output "ext_ip_vm1" {
   value = "${module.vms.external_ip1}"
 }
@@ -37,10 +24,6 @@ output subnet2_self_link {
 output subnet2_name {
   value = "${module.net2.subnet_name}"
 }
-
-
-*/
-
 
 /*
 output vpc_self_link {
