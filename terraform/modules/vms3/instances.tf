@@ -1,7 +1,7 @@
 
 // A single Google Cloud Engine instance
 resource "google_compute_instance" "vm_333additional" {
-###  count =2
+  ###  count =2
   metadata = {
     ssh-keys = "${var.sshuser}:${file(var.public_key_path)}"
   }
@@ -22,7 +22,12 @@ resource "google_compute_instance" "vm_333additional" {
 
   ################
   network_interface {
+    network    = "${var.subnet_name == "" ? var.network_name : ""}"
     subnetwork = "${var.subnet_name}"
+###    access_config {
+      //           Include this section to give the VM an external ip address
+###    }
+
   }
 }
 

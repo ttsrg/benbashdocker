@@ -2,9 +2,14 @@
 #####################
 variable "subnet_name" {
   //default = "${module.net2.subnet_self_link}"
-//  default = "subnetwork3-private"
-default = ""
+  //  default = "subnetwork3-private"
+  default = ""
 }
+
+variable "network_name" {
+  default = "default"
+}
+
 
 variable "instances_name" {
   //type = list(string)

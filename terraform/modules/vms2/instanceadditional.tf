@@ -24,7 +24,7 @@ resource "google_compute_instance" "vm_additional" {
 //      network = "default"
     subnetwork = "${var.subnet_name}"
 //   subnetwork = subnet2_name
-//acccess_config {
+//access_config {
       // Include this section to give the VM an external ip address
 //    }
   }
