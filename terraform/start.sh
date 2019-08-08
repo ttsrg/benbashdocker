@@ -2,7 +2,7 @@ terraform fmt
 terraform fmt modules/network/
 terraform init
 #terraform plan
-terraform apply   -var-file="vm1.tfvars"   -auto-approve  
+terraform apply      -auto-approve  
 #-var-file="variables.tf"
 
 

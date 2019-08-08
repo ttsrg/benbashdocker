@@ -1,13 +1,38 @@
 
 
+variable "disk_size" {
+  type = "map"
+  default = {
+    region-0 = "10"
+    region-1 = "11"
+  }
+}
+
+
+variable "regions" {
+  type    = "list"
+  default = ["europe-west1", "europe-west6"]
+}
+
+variable "zones" {
+  //  default = "europe-west1-b"
+  type    = "list"
+  default = ["europe-west1-b", "europe-west6-c"]
+}
+
+
+
 
 variable "region" {
-  default = "europe-west1"
+  default = "asia-east1"
 }
 
 variable "zone" {
-  default = "europe-west1-b"
+  //default = "europe-west1-b"
+  default = "us-west2-c"
+
 }
+
 
 variable "project_name" {
   description = "The ID of the Google Cloud project"
@@ -18,7 +43,6 @@ variable "project_name" {
 
 
 
-### count = "${var.count}"
 
 variable "instance_name" {
   description = "The name of instance"

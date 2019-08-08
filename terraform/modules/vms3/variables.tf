@@ -13,16 +13,21 @@ variable "network_name" {
 
 variable "instances_name" {
   //type = list(string)
-  default = "vm31"
+  default = "vm30"
 }
 
 
+
+variable "vms_count" {
+      default = "1"
+      }
+
 variable "zone" {
-  default = "europe-west1-b"
+  default = "us-central1-a"
 }
 
 variable "region" {
-  default = "europe-west1"
+  default = "us-central1"
 }
 
 
@@ -32,10 +37,18 @@ variable "machine_type" {
   #  default = "g1-small"
 }
 
-variable "image_size" {
-  default = "13"
-}
+//variable "disk_size" {
+//  default = "13"
+//}
 
+variable "disk_size" {
+  type = "map"
+    default = {
+        region-0 = "13"
+            region-1 = "14"
+              }
+              }
+              
 
 
 variable "image" {

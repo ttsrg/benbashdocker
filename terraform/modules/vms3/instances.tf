@@ -1,12 +1,13 @@
 
 // A single Google Cloud Engine instance
-resource "google_compute_instance" "vm_333additional" {
-  ###  count =2
+resource "google_compute_instance" "vm_3" {
+  count = "${var.vms_count}"
   metadata = {
     ssh-keys = "${var.sshuser}:${file(var.public_key_path)}"
   }
 
-  name         = "${var.instances_name}"
+  
+  name         = "${var.instances_name}-${count.index}"
   machine_type = "${var.machine_type}"
   zone         = var.zone
 
@@ -14,7 +15,11 @@ resource "google_compute_instance" "vm_333additional" {
     initialize_params {
       image = var.image
       #      size  = var.image_size
-      size = "${var.image_size}"
+//      size = "${var.disk_size}"
+
+//  size = "${lookup(var.disk_size, "region-${count.index}")}"
+############### need check if count > 2
+  size = "${lookup(var.disk_size, "region-${count.index >= 2 ? 0 : count.index }")}"
 
     }
   }

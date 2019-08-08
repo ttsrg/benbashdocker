@@ -10,8 +10,13 @@ variable "subnet_self_link" {
 
 
 variable "instances_name" {
-  default = "vm3_one"
+  default = "vm3"
 }
 
+
+
+variable "vms_count" {
+  default = "2"
+}
 
 
