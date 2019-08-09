@@ -1,4 +1,30 @@
 
+
+variable "mregions" {
+  type = "map"
+default = {}              
+              }
+              
+              
+              variable "mzones" {
+                type = "map"
+                  default = {}
+                            }
+                            
+
+variable "mdisk_size" {
+  type = "map"
+      default = {
+              region-0 = "13"
+                          region-1 = "14"
+                                        }
+                                                      }
+                                                      
+variable "msubnet_name" {
+      default = {}
+      }
+      
+
 #####################
 variable "subnet_name" {
   //default = "${module.net2.subnet_self_link}"
@@ -26,6 +52,15 @@ variable "zone" {
   default = "us-central1-a"
 }
 
+
+variable "zones" {
+  //  default = "europe-west1-b"
+    type    = "list"
+      //default = ["europe-west1-b", "europe-west6-c"]
+//      default = ["northamerica-northeast1-a","northamerica-northeast1-b"]
+default = []
+      }
+
 variable "region" {
   default = "us-central1"
 }
@@ -37,18 +72,6 @@ variable "machine_type" {
   #  default = "g1-small"
 }
 
-//variable "disk_size" {
-//  default = "13"
-//}
-
-variable "disk_size" {
-  type = "map"
-    default = {
-        region-0 = "13"
-            region-1 = "14"
-              }
-              }
-              
 
 
 variable "image" {

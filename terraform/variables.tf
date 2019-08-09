@@ -1,12 +1,38 @@
 
 
-variable "disk_size" {
+variable "mdisk_size" {
   type = "map"
   default = {
     region-0 = "10"
     region-1 = "11"
   }
 }
+variable "mregion_ip_cidr_range" {
+  type = "map"
+  default = {
+    region-0 = "10.10.10.0/24"
+    region-1 = "192.168.168.0/24"
+  }
+}
+
+
+variable "mregions" {
+  type = "map"
+  default = {
+    region-0 = "europe-west1"
+    region-1 = "us-central1"
+  }
+}
+
+
+variable "mzones" {
+  type = "map"
+  default = {
+    region-0 = "europe-west1-c"
+    region-1 = "us-central1-f"
+  }
+}
+
 
 
 variable "regions" {
