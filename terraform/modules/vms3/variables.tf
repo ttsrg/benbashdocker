@@ -5,12 +5,10 @@ variable "mregions" {
 default = {}              
               }
               
-              
               variable "mzones" {
                 type = "map"
                   default = {}
                             }
-                            
 
 variable "mdisk_size" {
   type = "map"
@@ -19,11 +17,9 @@ variable "mdisk_size" {
                           region-1 = "14"
                                         }
                                                       }
-                                                      
-variable "msubnet_name" {
+variable "lsubnet_name" {
       default = {}
       }
-      
 
 #####################
 variable "subnet_name" {
@@ -55,7 +51,7 @@ variable "zone" {
 
 variable "zones" {
   //  default = "europe-west1-b"
-    type    = "list"
+//    type    = "list"
       //default = ["europe-west1-b", "europe-west6-c"]
 //      default = ["northamerica-northeast1-a","northamerica-northeast1-b"]
 default = []

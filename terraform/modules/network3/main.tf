@@ -21,7 +21,6 @@ resource "google_compute_subnetwork" "subnet3" {
 //  }
 }
 
-/*
 resource "google_compute_firewall" "sg3" {
   name = "sg3"
   #    network = "default"
@@ -36,4 +35,3 @@ resource "google_compute_firewall" "sg3" {
     ports    = "${var.ports_number}"
   }
 }
-*/

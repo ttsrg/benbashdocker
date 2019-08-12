@@ -1,13 +1,67 @@
 ###count....
 
+/*
+
+output disk_size {
+  value = "${module.vms3.(var.mdisk_size, "region-1")}"
+  
+  }
+  
+
+*/
+
+output "google_compute_instance_self_link" {
+  value = "${module.vms3.google_compute_instance_self_link}"
+}
+
+output "google_compute_instance_internal_ip" {
+  value = "${module.vms3.internal_ip}"
+}
+
+
+output "google_compute_instance_name" {
+  value = "${module.vms3.vm_name}"
+}
+
+
+output "google_compute_instance_disk" {
+  value = "${module.vms3.disk}"
+}
+
+
+output vpc_self_link {
+  value = "${module.net3.vpc_self_link}"
+}
+
 
 output subnet3_self_link {
   value = "${module.net3.subnet_self_link}"
 }
 
-output subnet3_name {
+output subnet3_ip_range {
+  value = "${module.net3.subnet_ip_range}"
+}
+
+
+/*
+output lsubnet3_name {
   value = "${module.net3.subnet_name}"
 }
+*/
+
+
+output sg_self_link {
+  value = "${module.net3.sg_self_link}"
+}
+
+
+output sg_attributes {
+  value = "${module.net3.sg_attributes}"
+}
+
+
+
+
 
 
 

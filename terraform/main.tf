@@ -3,8 +3,8 @@
 provider "google" {
   credentials = "${file("${var.credentials_file_path}")}"
   project     = var.project_name
-  region      = "${var.region}"
-  zone        = var.zone
+  #  region      = "${var.region}"
+  #  zone        = var.zone
 }
 
 
@@ -23,31 +23,40 @@ module "net3" {
 
 
 module "vms3" {
-  //  count      = "length(${var.vms_count})"
-  source = "./modules/vms3/"
-  //  disk_size = "${lookup("${null_resource.regions.2.triggers}", "${null_resource.regions.2.triggers.disk_size}")}"
-  //  disk_size = "${null_resource.regions.2.triggers.disk_size}"
-  // disk_size = {
-  //  "${null_resource.regions.2.triggers.region_id}"
-  //  "${null_resource.regions.2.triggers.disk_size}"
-  // }
+  source     = "./modules/vms3/"
   mdisk_size = "${var.mdisk_size}"
   mzones     = "${var.mzones}"
-  //  zone = "${lookup(var.zones,var.foo)}"
-  //  subnet_self_link = "${module.net2.subnet_self_link}"
-  //subnet_self_link = "${var.subnet_self_link}"
-  ###  subnet_name = "${var.subnetwork3_name}"
+
   ################## official workaround instead of the will-realised "depends_on" in modules
-  msubnet_name   = "${module.net3.subnet_name}"
+  lsubnet_name   = "${module.net3.subnet_name}"
   vms_count      = "${var.vms_count}"
   instances_name = "${var.instances_name}"
 }
 
 
 
+/*
+module "lb" {
+  # When using these modules in your own templates, you will need to use a Git URL with a ref attribute that pins you
+  # to a specific version of the modules, such as the following example:
+  # source = "github.com/gruntwork-io/terraform-google-load-balancer.git//modules/network-load-balancer?ref=v0.2.0"
+  source = "./modules/lbnet"
 
+  name    = var.namelb
+  region  = var.lregions
+  project = var.project_name
 
-output image_size {
-  value = "${lookup(var.mdisk_size, "region-1")}"
+  enable_health_check = true
+  health_check_port   = "5000"
+  health_check_path   = "/api"
 
+  firewall_target_tags = [var.namelb]
+  //  instances= var.instances
+  //  instances = [google_compute_instance.self_link]
+  instances = "${module.vms3.google_compute_instance_self_link}"
+  ###                          custom_labels = var.custom_labels
 }
+*/
+
+
+

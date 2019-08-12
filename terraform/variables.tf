@@ -1,5 +1,11 @@
 
 
+
+variable "namelb" {
+  default = "lbnet"
+}
+
+
 variable "mdisk_size" {
   type = "map"
   default = {
@@ -35,9 +41,9 @@ variable "mzones" {
 
 
 
-variable "regions" {
+variable "lregions" {
   type    = "list"
-  default = ["europe-west1", "europe-west6"]
+  default = ["europe-west1", "us-central"]
 }
 
 variable "zones" {
@@ -50,7 +56,9 @@ variable "zones" {
 
 
 variable "region" {
-  default = "asia-east1"
+  //  default = "europe-west1"
+  default = "us-central1"
+
 }
 
 variable "zone" {
