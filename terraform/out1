@@ -1,0 +1,39 @@
+google_compute_instance_disk = [
+  11,
+  11,
+]
+google_compute_instance_internal_ip = [
+  "192.168.168.3",
+  "192.168.168.2",
+]
+google_compute_instance_name = [
+  "vm3-0",
+  "vm3-1",
+]
+google_compute_instance_self_link = [
+  "https://www.googleapis.com/compute/v1/projects/gerritben/zones/us-central1-f/instances/vm3-0",
+  "https://www.googleapis.com/compute/v1/projects/gerritben/zones/us-central1-f/instances/vm3-1",
+]
+sg_attributes = [
+  [
+    {
+      "ports" = [
+        "22",
+        "80",
+      ]
+      "protocol" = "tcp"
+    },
+    {
+      "ports" = []
+      "protocol" = "icmp"
+    },
+  ],
+]
+sg_self_link = https://www.googleapis.com/compute/v1/projects/gerritben/global/firewalls/sg3
+subnet3_ip_range = [
+  "192.168.168.0/24",
+]
+subnet3_self_link = [
+  "https://www.googleapis.com/compute/v1/projects/gerritben/regions/us-central1/subnetworks/subnetwork3-private-region-1",
+]
+vpc_self_link = https://www.googleapis.com/compute/v1/projects/gerritben/global/networks/a3-virtual-network

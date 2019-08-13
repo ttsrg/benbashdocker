@@ -10,13 +10,13 @@ provider "google" {
 
 
 
-
-
 module "net3" {
   source = "./modules/network3/"
   #  region      = "${var.region}"
   #  ip_cidr_range = var.ip_cidr_range
-  mregions              = var.mregions
+  mregions = var.mregions
+  vregion  = var.vregion
+
   mregion_ip_cidr_range = var.mregion_ip_cidr_range
 }
 
@@ -26,14 +26,31 @@ module "vms3" {
   source     = "./modules/vms3/"
   mdisk_size = "${var.mdisk_size}"
   mzones     = "${var.mzones}"
+  mregions   = "${var.mregions}"
+  ################## official recomendation instead of the using "depends_on" in modules
+  lsubnet_name = "${module.net3.subnet_name}"
+  vms_count    = "${var.vms_count}"
+  vregion      = var.vregion
 
-  ################## official workaround instead of the will-realised "depends_on" in modules
-  lsubnet_name   = "${module.net3.subnet_name}"
-  vms_count      = "${var.vms_count}"
   instances_name = "${var.instances_name}"
 }
+/*
+resource "google_storage_bucket" "tf_state" {
+  name     = "ben_tf_state"
+  location = "EU"
+}
 
+//export GOOGLE_APPLICATION_CREDENTIALS=~/.gcloud/terraform.json...
+// in 2 steps, but depens_on and variables don't work here
+terraform {
+  backend "gcs" {
+    bucket = "ben_tf_state"
+    //    bucket = "${google_storage_bucket.tf_state.name}"
+    prefix = "state-file-project-ben"
+  }
+}
 
+*/
 
 /*
 module "lb" {

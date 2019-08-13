@@ -1,3 +1,8 @@
-instance_name = "vm111"
-image_size    = "12"
-//zone          = "europe-west1-b"
+
+##mregions = {
+##  region-0 = "europe-west1"
+//  region-1 = "us-central1"
+##}
+vms_count = "2"
+##lsubnet   = []
+vregion = "region-1"

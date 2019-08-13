@@ -1,25 +1,25 @@
 
 
 variable "mregions" {
-  type = "map"
-default = {}              
-              }
-              
-              variable "mzones" {
-                type = "map"
-                  default = {}
-                            }
+  type    = "map"
+  default = {}
+}
+
+variable "mzones" {
+  type    = "map"
+  default = {}
+}
 
 variable "mdisk_size" {
   type = "map"
-      default = {
-              region-0 = "13"
-                          region-1 = "14"
-                                        }
-                                                      }
+  default = {
+    region-0 = "13"
+    region-1 = "14"
+  }
+}
 variable "lsubnet_name" {
-      default = {}
-      }
+  default = {}
+}
 
 #####################
 variable "subnet_name" {
@@ -41,8 +41,8 @@ variable "instances_name" {
 
 
 variable "vms_count" {
-      default = "1"
-      }
+  default = "1"
+}
 
 variable "zone" {
   default = "us-central1-a"
@@ -51,14 +51,14 @@ variable "zone" {
 
 variable "zones" {
   //  default = "europe-west1-b"
-//    type    = "list"
-      //default = ["europe-west1-b", "europe-west6-c"]
-//      default = ["northamerica-northeast1-a","northamerica-northeast1-b"]
-default = []
-      }
+  //    type    = "list"
+  //default = ["europe-west1-b", "europe-west6-c"]
+  //      default = ["northamerica-northeast1-a","northamerica-northeast1-b"]
+  default = []
+}
 
-variable "region" {
-  default = "us-central1"
+variable "vregion" {
+  default = ""
 }
 
 

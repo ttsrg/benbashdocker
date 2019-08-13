@@ -1,3 +1,28 @@
+variable "subnet_self_link" {
+  //default = "module.net2.subnet_self_link"
+  default = "subnetwork3-private"
+
+}
+
+
+variable "instances_name" {
+  default = "vm3"
+}
+
+
+
+variable "vms_count" {
+  default = "1"
+}
+
+
+variable "mvms_count" {
+  type = "map"
+  default = {
+    region-0 = "2"
+    region-1 = "2"
+  }
+}
 
 
 
@@ -17,7 +42,7 @@ variable "mregion_ip_cidr_range" {
   type = "map"
   default = {
     region-0 = "10.10.10.0/24"
-    region-1 = "192.168.168.0/24"
+    region-1 = "192.168.110.0/24"
   }
 }
 
@@ -55,10 +80,9 @@ variable "zones" {
 
 
 
-variable "region" {
+variable "vregion" {
   //  default = "europe-west1"
-  default = "us-central1"
-
+  default = ""
 }
 
 variable "zone" {
