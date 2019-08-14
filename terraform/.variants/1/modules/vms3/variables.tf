@@ -71,7 +71,11 @@ variable "machine_type" {
 
 
 variable "image" {
-  default = ""
+  description = "image for default stack"
+  # default = "debian-cloud/debian-9"
+  default = "centos-cloud/centos-7"
+  #default = "cos-cloud/cos-stable"
+
 }
 
 

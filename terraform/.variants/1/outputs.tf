@@ -23,13 +23,8 @@ output "google_compute_instance_name" {
 }
 
 
-output "google_compute_instance_disk_size" {
-  value = "${module.vms3.disk_size}"
-}
-
-
-output "google_compute_instance_disk_image" {
-  value = "${module.vms3.disk_image}"
+output "google_compute_instance_disk" {
+  value = "${module.vms3.disk}"
 }
 
 
@@ -47,9 +42,11 @@ output subnet3_ip_range {
 }
 
 
-output subnet3_name {
+/*
+output lsubnet3_name {
   value = "${module.net3.subnet_name}"
 }
+*/
 
 
 output sg_self_link {

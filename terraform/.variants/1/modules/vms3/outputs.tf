@@ -11,16 +11,10 @@ output "vm_name" {
 }
 
 
-output "disk_size" {
+output "disk" {
   ############## HOW I must  find it?
   value = "${google_compute_instance.vm_3.*.boot_disk.0.initialize_params.0.size}"
-  ###  value = "${google_compute_instance.vm_3.*.boot_disk}"
   //  value = "${google_compute_instance.vm_3.*.boot_disk.0.persistent-disk-0.size}"
 
 }
-
-
-
-output "disk_image" {
-  value = "${google_compute_instance.vm_3.*.boot_disk.0.initialize_params.0.image}"
-}
+//persistent-disk-0

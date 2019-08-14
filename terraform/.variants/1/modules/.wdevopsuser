@@ -1,0 +1,426 @@
+{
+  "version": 4,
+  "terraform_version": "0.12.6",
+  "serial": 11,
+  "lineage": "cda1a7db-4f14-18f6-f34c-96b01f644b18",
+  "outputs": {
+    "google_compute_instance_disk": {
+      "value": [
+        10,
+        11
+      ],
+      "type": [
+        "tuple",
+        [
+          "number",
+          "number"
+        ]
+      ]
+    },
+    "google_compute_instance_internal_ip": {
+      "value": [
+        "10.10.10.2",
+        "192.168.168.2"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "google_compute_instance_name": {
+      "value": [
+        "vm3-0",
+        "vm3-1"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "google_compute_instance_self_link": {
+      "value": [
+        "https://www.googleapis.com/compute/v1/projects/gerritben/zones/europe-west1-c/instances/vm3-0",
+        "https://www.googleapis.com/compute/v1/projects/gerritben/zones/us-central1-f/instances/vm3-1"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "sg_attributes": {
+      "value": [
+        [
+          {
+            "ports": [
+              "22",
+              "80"
+            ],
+            "protocol": "tcp"
+          },
+          {
+            "ports": [],
+            "protocol": "icmp"
+          }
+        ]
+      ],
+      "type": [
+        "tuple",
+        [
+          [
+            "set",
+            [
+              "object",
+              {
+                "ports": [
+                  "list",
+                  "string"
+                ],
+                "protocol": "string"
+              }
+            ]
+          ]
+        ]
+      ]
+    },
+    "sg_self_link": {
+      "value": "https://www.googleapis.com/compute/v1/projects/gerritben/global/firewalls/sg3",
+      "type": "string"
+    },
+    "subnet3_ip_range": {
+      "value": [
+        "10.10.10.0/24",
+        "192.168.168.0/24"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "subnet3_self_link": {
+      "value": [
+        "https://www.googleapis.com/compute/v1/projects/gerritben/regions/europe-west1/subnetworks/subnetwork3-private-0",
+        "https://www.googleapis.com/compute/v1/projects/gerritben/regions/us-central1/subnetworks/subnetwork3-private-1"
+      ],
+      "type": [
+        "tuple",
+        [
+          "string",
+          "string"
+        ]
+      ]
+    },
+    "vpc_self_link": {
+      "value": "https://www.googleapis.com/compute/v1/projects/gerritben/global/networks/a3-virtual-network",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "module": "module.net3",
+      "mode": "managed",
+      "type": "google_compute_firewall",
+      "name": "sg3",
+      "provider": "provider.google",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "allow": [
+              {
+                "ports": [
+                  "22",
+                  "80"
+                ],
+                "protocol": "tcp"
+              },
+              {
+                "ports": [],
+                "protocol": "icmp"
+              }
+            ],
+            "creation_timestamp": "2019-08-12T09:24:18.043-07:00",
+            "deny": [],
+            "description": "",
+            "destination_ranges": [],
+            "direction": "INGRESS",
+            "disabled": false,
+            "id": "sg3",
+            "name": "sg3",
+            "network": "https://www.googleapis.com/compute/v1/projects/gerritben/global/networks/a3-virtual-network",
+            "priority": 1000,
+            "project": "gerritben",
+            "self_link": "https://www.googleapis.com/compute/v1/projects/gerritben/global/firewalls/sg3",
+            "source_ranges": [
+              "0.0.0.0/0"
+            ],
+            "source_service_accounts": null,
+            "source_tags": null,
+            "target_service_accounts": null,
+            "target_tags": null,
+            "timeouts": null
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNDAwMDAwMDAwMDAsImRlbGV0ZSI6MjQwMDAwMDAwMDAwLCJ1cGRhdGUiOjI0MDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiMSJ9",
+          "depends_on": [
+            "google_compute_network.vpc3"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.vms3",
+      "mode": "managed",
+      "type": "google_compute_instance",
+      "name": "vm_3",
+      "each": "list",
+      "provider": "provider.google",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 6,
+          "attributes": {
+            "allow_stopping_for_update": null,
+            "attached_disk": [],
+            "boot_disk": [
+              {
+                "auto_delete": true,
+                "device_name": "persistent-disk-0",
+                "disk_encryption_key_raw": "",
+                "disk_encryption_key_sha256": "",
+                "initialize_params": [
+                  {
+                    "image": "https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/centos-7-v20190729",
+                    "size": 10,
+                    "type": "pd-standard"
+                  }
+                ],
+                "kms_key_self_link": "",
+                "source": "https://www.googleapis.com/compute/v1/projects/gerritben/zones/europe-west1-c/disks/vm3-0"
+              }
+            ],
+            "can_ip_forward": false,
+            "cpu_platform": "Intel Haswell",
+            "deletion_protection": false,
+            "description": null,
+            "disk": [],
+            "guest_accelerator": [],
+            "hostname": "",
+            "id": "vm3-0",
+            "instance_id": "2704807591614884897",
+            "label_fingerprint": "42WmSpB8rSM=",
+            "labels": null,
+            "machine_type": "f1-micro",
+            "metadata": {
+              "ssh-keys": "devops:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDNnWVc1E296N49bYZxbauLZX7sRUpBUUssqq1UjIqbQK6PICfRqDFDGjb0cpGpyA6XhBJLUFxcsq6wPi61M+fD8KgLroxyebxAj7lfJFyvSdeYNexfP3Rar9ZhqZuVOpVudvablfSgd+s5qbUsEEfNhkQikDK6pvbju+a2fdfv6SV07CMnVx7Cd5xtGQ25zFa3F4r4GMzaR6skyUltoJS/4YGbiQZR/xfIJicxsIuBS7MFRBle1Dci5BKStkMkJ9CBs6chdJWSmTzZcSI6MWFWKfy/0hdc+Ja1H7yEQa1PIDsvIPtQMYuE74nskjMSfHFU5I7HJ80/+q9hBMUZdhC/VSbyOGoM/ZJT+K8VauSSmkKfvUxzfYEhuG4jEWPRxSZH8fQoVKnd7xbn3tUqD0qH5aQyV5vd3uyX8rkzSaZr1SyfPU/Vo4nmByxQBsjzffjr8oObbxz7BRLfEJvCVZZrz2NRmLthSwU2yfvBZrd3vgDifU+HaLdvR8lK5vdRNkGtqzWC6cNDQhBOiZ3u0FCCNdvw2jnsaE6IXKTzj/B6qRTjjFttL7nSP9e3U5txOSk+jC2lrpQ4C/afunHZ2skdxx5OrwLotEE6wqOlY/jlRPMgE5NwTcaKly/4aLfFhZJFlJNUh+CcG27Gpz9YnJJPsnrPkLCqxsuWxlayqxktrQ== VBOXepm\n"
+            },
+            "metadata_fingerprint": "TNzD9KQgkL0=",
+            "metadata_startup_script": "",
+            "min_cpu_platform": "",
+            "name": "vm3-0",
+            "network_interface": [
+              {
+                "access_config": [],
+                "address": "",
+                "alias_ip_range": [],
+                "name": "nic0",
+                "network": "https://www.googleapis.com/compute/v1/projects/gerritben/global/networks/a3-virtual-network",
+                "network_ip": "10.10.10.2",
+                "subnetwork": "https://www.googleapis.com/compute/v1/projects/gerritben/regions/europe-west1/subnetworks/subnetwork3-private-0",
+                "subnetwork_project": "gerritben"
+              }
+            ],
+            "project": "gerritben",
+            "scheduling": [
+              {
+                "automatic_restart": true,
+                "node_affinities": [],
+                "on_host_maintenance": "MIGRATE",
+                "preemptible": false
+              }
+            ],
+            "scratch_disk": [],
+            "self_link": "https://www.googleapis.com/compute/v1/projects/gerritben/zones/europe-west1-c/instances/vm3-0",
+            "service_account": [],
+            "shielded_instance_config": [],
+            "tags": null,
+            "tags_fingerprint": "42WmSpB8rSM=",
+            "timeouts": null,
+            "zone": "europe-west1-c"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiNiJ9"
+        },
+        {
+          "index_key": 1,
+          "schema_version": 6,
+          "attributes": {
+            "allow_stopping_for_update": null,
+            "attached_disk": [],
+            "boot_disk": [
+              {
+                "auto_delete": true,
+                "device_name": "persistent-disk-0",
+                "disk_encryption_key_raw": "",
+                "disk_encryption_key_sha256": "",
+                "initialize_params": [
+                  {
+                    "image": "https://www.googleapis.com/compute/v1/projects/centos-cloud/global/images/centos-7-v20190729",
+                    "size": 11,
+                    "type": "pd-standard"
+                  }
+                ],
+                "kms_key_self_link": "",
+                "source": "https://www.googleapis.com/compute/v1/projects/gerritben/zones/us-central1-f/disks/vm3-1"
+              }
+            ],
+            "can_ip_forward": false,
+            "cpu_platform": "Intel Haswell",
+            "deletion_protection": false,
+            "description": null,
+            "disk": [],
+            "guest_accelerator": [],
+            "hostname": "",
+            "id": "vm3-1",
+            "instance_id": "5219816070784494625",
+            "label_fingerprint": "42WmSpB8rSM=",
+            "labels": null,
+            "machine_type": "f1-micro",
+            "metadata": {
+              "ssh-keys": "devops:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDNnWVc1E296N49bYZxbauLZX7sRUpBUUssqq1UjIqbQK6PICfRqDFDGjb0cpGpyA6XhBJLUFxcsq6wPi61M+fD8KgLroxyebxAj7lfJFyvSdeYNexfP3Rar9ZhqZuVOpVudvablfSgd+s5qbUsEEfNhkQikDK6pvbju+a2fdfv6SV07CMnVx7Cd5xtGQ25zFa3F4r4GMzaR6skyUltoJS/4YGbiQZR/xfIJicxsIuBS7MFRBle1Dci5BKStkMkJ9CBs6chdJWSmTzZcSI6MWFWKfy/0hdc+Ja1H7yEQa1PIDsvIPtQMYuE74nskjMSfHFU5I7HJ80/+q9hBMUZdhC/VSbyOGoM/ZJT+K8VauSSmkKfvUxzfYEhuG4jEWPRxSZH8fQoVKnd7xbn3tUqD0qH5aQyV5vd3uyX8rkzSaZr1SyfPU/Vo4nmByxQBsjzffjr8oObbxz7BRLfEJvCVZZrz2NRmLthSwU2yfvBZrd3vgDifU+HaLdvR8lK5vdRNkGtqzWC6cNDQhBOiZ3u0FCCNdvw2jnsaE6IXKTzj/B6qRTjjFttL7nSP9e3U5txOSk+jC2lrpQ4C/afunHZ2skdxx5OrwLotEE6wqOlY/jlRPMgE5NwTcaKly/4aLfFhZJFlJNUh+CcG27Gpz9YnJJPsnrPkLCqxsuWxlayqxktrQ== VBOXepm\n"
+            },
+            "metadata_fingerprint": "TNzD9KQgkL0=",
+            "metadata_startup_script": "",
+            "min_cpu_platform": "",
+            "name": "vm3-1",
+            "network_interface": [
+              {
+                "access_config": [],
+                "address": "",
+                "alias_ip_range": [],
+                "name": "nic0",
+                "network": "https://www.googleapis.com/compute/v1/projects/gerritben/global/networks/a3-virtual-network",
+                "network_ip": "192.168.168.2",
+                "subnetwork": "https://www.googleapis.com/compute/v1/projects/gerritben/regions/us-central1/subnetworks/subnetwork3-private-1",
+                "subnetwork_project": "gerritben"
+              }
+            ],
+            "project": "gerritben",
+            "scheduling": [
+              {
+                "automatic_restart": true,
+                "node_affinities": [],
+                "on_host_maintenance": "MIGRATE",
+                "preemptible": false
+              }
+            ],
+            "scratch_disk": [],
+            "self_link": "https://www.googleapis.com/compute/v1/projects/gerritben/zones/us-central1-f/instances/vm3-1",
+            "service_account": [],
+            "shielded_instance_config": [],
+            "tags": null,
+            "tags_fingerprint": "42WmSpB8rSM=",
+            "timeouts": null,
+            "zone": "us-central1-f"
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH0sInNjaGVtYV92ZXJzaW9uIjoiNiJ9"
+        }
+      ]
+    },
+    {
+      "module": "module.net3",
+      "mode": "managed",
+      "type": "google_compute_network",
+      "name": "vpc3",
+      "provider": "provider.google",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "auto_create_subnetworks": false,
+            "delete_default_routes_on_create": false,
+            "description": "",
+            "gateway_ipv4": "",
+            "id": "a3-virtual-network",
+            "ipv4_range": "",
+            "name": "a3-virtual-network",
+            "project": "gerritben",
+            "routing_mode": "REGIONAL",
+            "self_link": "https://www.googleapis.com/compute/v1/projects/gerritben/global/networks/a3-virtual-network",
+            "timeouts": null
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNDAwMDAwMDAwMDAsImRlbGV0ZSI6MjQwMDAwMDAwMDAwLCJ1cGRhdGUiOjI0MDAwMDAwMDAwMH19"
+        }
+      ]
+    },
+    {
+      "module": "module.net3",
+      "mode": "managed",
+      "type": "google_compute_subnetwork",
+      "name": "subnet3",
+      "each": "list",
+      "provider": "provider.google",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "creation_timestamp": "2019-08-12T09:24:18.171-07:00",
+            "description": "",
+            "enable_flow_logs": false,
+            "fingerprint": "dXs6OnGKIw0=",
+            "gateway_address": "10.10.10.1",
+            "id": "europe-west1/subnetwork3-private-0",
+            "ip_cidr_range": "10.10.10.0/24",
+            "name": "subnetwork3-private-0",
+            "network": "https://www.googleapis.com/compute/v1/projects/gerritben/global/networks/a3-virtual-network",
+            "private_ip_google_access": true,
+            "project": "gerritben",
+            "region": "europe-west1",
+            "secondary_ip_range": [],
+            "self_link": "https://www.googleapis.com/compute/v1/projects/gerritben/regions/europe-west1/subnetworks/subnetwork3-private-0",
+            "timeouts": null
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozNjAwMDAwMDAwMDAsImRlbGV0ZSI6MzYwMDAwMDAwMDAwLCJ1cGRhdGUiOjM2MDAwMDAwMDAwMH19",
+          "depends_on": [
+            "google_compute_network.vpc3"
+          ]
+        },
+        {
+          "index_key": 1,
+          "schema_version": 0,
+          "attributes": {
+            "creation_timestamp": "2019-08-12T09:24:18.177-07:00",
+            "description": "",
+            "enable_flow_logs": false,
+            "fingerprint": "8q8V76Qq2bI=",
+            "gateway_address": "192.168.168.1",
+            "id": "us-central1/subnetwork3-private-1",
+            "ip_cidr_range": "192.168.168.0/24",
+            "name": "subnetwork3-private-1",
+            "network": "https://www.googleapis.com/compute/v1/projects/gerritben/global/networks/a3-virtual-network",
+            "private_ip_google_access": true,
+            "project": "gerritben",
+            "region": "us-central1",
+            "secondary_ip_range": [],
+            "self_link": "https://www.googleapis.com/compute/v1/projects/gerritben/regions/us-central1/subnetworks/subnetwork3-private-1",
+            "timeouts": null
+          },
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjozNjAwMDAwMDAwMDAsImRlbGV0ZSI6MzYwMDAwMDAwMDAwLCJ1cGRhdGUiOjM2MDAwMDAwMDAwMH19",
+          "depends_on": [
+            "google_compute_network.vpc3"
+          ]
+        }
+      ]
+    }
+  ]
+}

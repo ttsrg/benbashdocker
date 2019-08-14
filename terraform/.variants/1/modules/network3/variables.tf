@@ -1,10 +1,10 @@
 
 variable "ports_number" {
-  default = ["22", "80"]
+default =  ["22", "80"]
 }
 
 variable "vregion" {
-  default = ""
+default =  ""
 }
 
 /*
@@ -17,15 +17,15 @@ type = "map"
 }
 */
 
-variable "mregion_ip_cidr_range" {
-  ##type = "map"
+variable  "mregion_ip_cidr_range" {
+##type = "map"
   default = []
-}
-
+        }
+        
 
 
 variable "mregions" {
-  type    = "map"
+  type = "map"
   default = {}
-}
+                }
                 

@@ -1,0 +1,82 @@
+/*
+locals {
+  region_ids    = ["region-1", "region-2", "region-3"]
+    name_regions  = ["us-central1", "asia-northeast2", "europe-west3"]
+      ip_cidr_range = ["10", "192", "172"]
+        disks_size    = ["11", "12", "13"]
+        }
+        
+        
+        resource "null_resource" "regions" {
+          count = "${length(local.region_ids)}"
+          
+            triggers = {
+                region_id     = "${element(local.region_ids, count.index)}"
+                    name_region   = "${element(local.name_regions, count.index)}"
+                        disk_size     = "${element(local.disks_size, count.index)}"
+                            ip_cidr_range = "${element(local.ip_cidr_range, count.index)}"
+                              }
+                              }
+                              
+                              output "regions" {
+                                value = "${null_resource.regions.*.triggers}"
+                                }
+                                
+                                output "regions_disk_size" {
+                                  value = "${null_resource.regions.2.triggers.disk_size}"
+                                  }
+
+*/
+
+
+resource "null_resource" "test" {
+  count = "${length(var.vm_region)}"
+  triggers = {
+    //           ip_cidr_range = 
+    name_region = "${element(var.vm_region, count.index)}"
+  }
+}
+
+
+
+resource "google_compute_instance" "vm_test" {
+  //  count = "${var.vms_count}"
+  count = "${length(var.vm_region)}"
+  metadata = {
+    ssh-keys = "${var.sshuser}:${file(var.public_key_path)}"
+  }
+
+  name         = "${var.instances_name}-test-${count.index}"
+  machine_type = "${var.machine_type}"
+  //zone          = var.zone
+  //  zone = "${lookup(var.region_ip_cidr_range, us-central)}"
+  zone = "${element(var.zones, count.index)}"
+  boot_disk {
+
+    initialize_params {
+      image = var.image
+      #      size  = var.image_size
+      //      size = "${var.disk_size}"
+
+      //  size = "${lookup(var.disk_size, "region-${count.index}")}"
+      ############### need check if count > 2
+      size = "${lookup(var.disk_size, "region-${count.index >= 2 ? 0 : count.index}")}"
+
+    }
+  }
+
+  ################
+  network_interface {
+    network = "default"
+    //    network    = "${var.subnet_name == "" ? var.network_name : ""}"
+    //    subnetwork = "${var.subnet_name}"
+    ###    access_config {
+    //           Include this section to give the VM an external ip address
+    ###    }
+
+  }
+}
+
+output "test_region_name" {
+  value = "${google_compute_instance.vm_test.*.name}"
+}
