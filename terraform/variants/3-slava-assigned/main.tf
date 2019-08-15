@@ -3,28 +3,19 @@
 provider "google" {
   credentials = "${file("${var.credentials_file_path}")}"
   project     = var.project_name
-  region      = "${var.mregions[var.vregion]}"
+  #  region      = "${var.region}"
   #  zone        = var.zone
 }
 
-terraform {
-  backend "gcs" {
-    bucket = "ben_manual"
-    //    bucket = "${google_storage_bucket.tf_state.name}"
-    //    prefix = "state-file-project-ben"
-  }
-}
 
 
 
 module "net3" {
-  source                = "./modules/network3/"
-  mregions              = var.mregions
-  vregion               = var.vregion
-  lnet                  = var.lnet
-  mregion_ip_cidr_range = var.mregion_ip_cidr_range
-  ip_cidr_range_2       = var.mnet_ip_cidr_range["public"]
+  source   = "./modules/network3/"
+  mregions = var.mregions
+  vregion  = var.vregion
 
+  mregion_ip_cidr_range = var.mregion_ip_cidr_range
 }
 
 

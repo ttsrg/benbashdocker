@@ -1,9 +1,4 @@
 
-variable mnet_ip_cidr_range {
-}
-
-
-
 variable "instances_name" {
   default = ""
 }
@@ -16,11 +11,6 @@ variable "vms_count" {
 variable "mdisk_size" {
   type    = "map"
   default = {}
-}
-
-
-variable "lnet" {
-  default = []
 }
 
 

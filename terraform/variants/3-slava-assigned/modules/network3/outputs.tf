@@ -1,3 +1,4 @@
+
 output vpc_self_link {
   value = "${google_compute_network.vpc3.self_link}"
 }
@@ -13,13 +14,9 @@ output sg_name {
 }
 
 
-
-
 output sg_attributes {
   value = "${google_compute_firewall.sg3.*.allow}"
 }
-
-
 
 
 /*
@@ -29,8 +26,9 @@ output vpc_name {
 */
 
 
+
 output subnet_self_link {
-  value = "${google_compute_subnetwork.subnet3.*.self_link}"
+  value = "${google_compute_subnetwork.subnet3.self_link}"
 }
 
 output subnet_name {

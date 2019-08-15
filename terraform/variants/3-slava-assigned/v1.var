@@ -14,22 +14,12 @@ mregions = {
 
 mregion_ip_cidr_range = {
   europe-west1 = "10.10.10.0/24"
-  us-central1  = "10.11.11.0/24"
-}
-
-//net = "public"
-
-lnet = ["private", "db", "public"]
-
-mnet_ip_cidr_range = {
-  private = "10.10.10.0/24"
-  db      = "10.11.11.0/24"
-  public  = "172.16.0.0/29"
+  us-central1  = "192.168.11.0/24"
 }
 
 
 
-vms_count = "1"
+vms_count = "2"
 
 instances_name = "vm"
 
