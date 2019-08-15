@@ -1,14 +1,5 @@
 
 /*
-
-output disk_size {
-  value = "${module.vms3.(var.mdisk_size, "region-1")}"
-  
-  }
-  
-
-*/
-
 output "google_compute_instance_self_link" {
   value = "${module.vms3.google_compute_instance_self_link}"
 }
@@ -52,11 +43,6 @@ output subnet_name {
 }
 
 
-output sg_self_link {
-  value = "${module.net3.sg_self_link}"
-}
-
-
 output sg_attributes {
   value = "${module.net3.sg_attributes}"
 }
@@ -64,3 +50,4 @@ output sg_attributes {
 
 
 
+*/

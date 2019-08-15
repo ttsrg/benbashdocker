@@ -12,6 +12,14 @@ variable "lnet" {
   default = []
 }
 
+variable "lnet_ip_cidr_range" {
+  default = []
+}
+
+variable "mnet_ip_cidr_range" {
+  default = {}
+}
+
 
 variable "mregion_ip_cidr_range" {
   ###interesting bug or feature

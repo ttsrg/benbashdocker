@@ -19,14 +19,15 @@ mregion_ip_cidr_range = {
 
 //net = "public"
 
-lnet = ["private", "db", "public"]
-
+lnet               = ["private", "db", "public"]
+lnet_ip_cidr_range = ["10.10.10.0/24", "10.11.11.0/29", "172.16.16.0/29"]
+/*
 mnet_ip_cidr_range = {
   private = "10.10.10.0/24"
-  db      = "10.11.11.0/24"
-  public  = "172.16.0.0/29"
+  db      = "10.11.11.0/29"
+  public  = "172.16.16.0/29"
 }
-
+*/
 
 
 vms_count = "1"

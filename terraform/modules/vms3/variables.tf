@@ -20,6 +20,10 @@ variable "size" {
 }
 
 
+variable mnet_ip_cidr_range {
+  default = {}
+}
+
 variable "lsubnet_name" {
   default = {}
 }

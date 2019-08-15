@@ -1,5 +1,10 @@
 
 variable mnet_ip_cidr_range {
+  default = {}
+}
+
+variable lnet_ip_cidr_range {
+  default = []
 }
 
 

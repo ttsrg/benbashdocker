@@ -2,7 +2,7 @@ terraform fmt
 terraform fmt modules/network3/
 terraform fmt modules/vms3/
 export GOOGLE_APPLICATION_CREDENTIALS=~/.gcloud/terraform.json
-###terraform init
+ terraform init
 ###terraform plan
 
 
